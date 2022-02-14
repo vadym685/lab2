@@ -3,13 +3,16 @@ package com.example.modulecontrol2.model;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "point")
 public class Point {
+    public Point() {
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "outer_id")
     private String outerID;

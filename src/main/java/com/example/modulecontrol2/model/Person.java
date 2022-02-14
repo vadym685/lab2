@@ -1,13 +1,18 @@
 package com.example.modulecontrol2.model;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "person")
 public class Person {
+
+    public Person() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "outer_id")
     private String outerID;
@@ -25,9 +30,12 @@ public class Person {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @JoinColumn(name = "manager_id")
+    @Column(name = "manager_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Person manager;
+
+    @Column
+    private UUID manager_id;
 
     public Task getTask() {
         return task;

@@ -4,13 +4,17 @@ package com.example.modulecontrol2.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "task")
 public class Task {
+    public Task() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "outer_id")
     private String outerID;
