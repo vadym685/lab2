@@ -4,10 +4,15 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "consumables")
 public class Consumables {
+
     public Consumables() {
     }
+
+    @ManyToOne
+    @JoinColumn(name = "consumables_id")
+    private Position consumables;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,15 +24,35 @@ public class Consumables {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "consumables_id")
-    private Position consumables;
-
     public Position getConsumables() {
         return consumables;
     }
 
     public void setConsumables(Position consumables) {
         this.consumables = consumables;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

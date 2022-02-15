@@ -16,17 +16,55 @@ public class Position {
     private UUID id;
 
     @Column(name = "description")
-    private String description ;
+    private String description;
 
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task task;
-
     @OneToMany(mappedBy = "consumables")
     private List<Consumables> consumables;
 
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private Task position;
 
+    public Task getPosition() {
+        return position;
+    }
+
+    public void setPosition(Task position) {
+        this.position = position;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public List<Consumables> getConsumables() {
+        return consumables;
+    }
+
+    public void setConsumables(List<Consumables> consumables) {
+        this.consumables = consumables;
+    }
 }

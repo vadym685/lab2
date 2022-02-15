@@ -1,6 +1,7 @@
 package com.example.modulecontrol2.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,22 +27,65 @@ public class Person {
     @Column
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task task;
-
-    @Column(name = "manager_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Person manager;
-
     @Column
     private UUID manager_id;
 
-    public Task getTask() {
-        return task;
+    @OneToMany(mappedBy = "point")
+    private List<Point> point;
+
+    public UUID getManager_id() {
+        return manager_id;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setManager_id(UUID manager_id) {
+        this.manager_id = manager_id;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getOuterID() {
+        return outerID;
+    }
+
+    public void setOuterID(String outerID) {
+        this.outerID = outerID;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Point> getPoint() {
+        return point;
+    }
+
+    public void setPoint(List<Point> point) {
+        this.point = point;
     }
 }

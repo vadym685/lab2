@@ -9,6 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "task")
 public class Task {
+
     public Task() {
     }
 
@@ -22,18 +23,50 @@ public class Task {
     @Column
     private LocalDate date;
 
+    @OneToMany(mappedBy = "position")
+    private List<Position> positions;
 
-    @JoinColumn(name = "point_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Point point;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Point task;
 
-    @OneToMany(mappedBy = "task")
-    private List<Person> perfomers;
+    public Point getTask() {
+        return task;
+    }
 
-    @OneToMany(mappedBy = "task")
-    private List<Position> position;
+    public void setTask(Point task) {
+        this.task = task;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Person client;
+    public UUID getId() {
+        return id;
+    }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getOuterID() {
+        return outerID;
+    }
+
+    public void setOuterID(String outerID) {
+        this.outerID = outerID;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<Position> positions) {
+        this.positions = positions;
+    }
 }
