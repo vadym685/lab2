@@ -1,7 +1,7 @@
-package com.example.modulecontrol2.controler.entity_controllers;
+package com.example.lab2.controler.entity_controllers;
 
-import com.example.modulecontrol2.model.Task;
-import com.example.modulecontrol2.repository.TaskRepo;
+import com.example.lab2.model.Task;
+import com.example.lab2.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

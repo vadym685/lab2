@@ -1,4 +1,4 @@
-package com.example.modulecontrol2;
+package com.example.lab2;
 
 
 import org.springframework.boot.SpringApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class ModuleControl2Application {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(ModuleControl2Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 

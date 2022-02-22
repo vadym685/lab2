@@ -1,10 +1,9 @@
-package com.example.modulecontrol2.model;
+package com.example.lab2.model;
 
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "point")
