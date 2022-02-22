@@ -13,7 +13,7 @@ public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private int id;
 
     @Column(name = "description")
     private String description;
@@ -36,13 +36,6 @@ public class Position {
         this.position = position;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getDescription() {
         return description;

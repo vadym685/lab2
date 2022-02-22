@@ -13,7 +13,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private int id;
 
     @Column(name = "outer_id")
     private String outerID;
@@ -28,26 +28,10 @@ public class Person {
     private String name;
 
     @Column
-    private UUID manager_id;
+    private int manager_id;
 
     @OneToMany(mappedBy = "point")
     private List<Point> point;
-
-    public UUID getManager_id() {
-        return manager_id;
-    }
-
-    public void setManager_id(UUID manager_id) {
-        this.manager_id = manager_id;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getOuterID() {
         return outerID;

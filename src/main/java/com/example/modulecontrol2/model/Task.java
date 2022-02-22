@@ -15,7 +15,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private int id;
 
     @Column(name = "outer_id")
     private String outerID;
@@ -38,13 +38,6 @@ public class Task {
         this.task = task;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getOuterID() {
         return outerID;
