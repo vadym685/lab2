@@ -1,108 +1,61 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
+
+@Table(name = "POINT")
 @Entity
-@Table(name = "point")
 public class Point {
-
-    public Point() {
-    }
-
+    @GeneratedValue
+    @Column(name = "ID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
-    @Column(name = "outer_id")
+    @Column(name = "OUTER_ID")
+    @JsonProperty("outerID")
     private String outerID;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
+    @JsonProperty("name")
     private String name;
 
-    @Column(name = "adress")
+    @Column(name = "ADRESS")
+    @JsonProperty("adress")
     private String adress;
 
     @NumberFormat(pattern = "##,##0.00000")
-    @Column(name = "latitude")
-    protected Double latitude;
+    @Column(name = "LATITUDE")
+    @JsonProperty("latitude")
+    private Double latitude;
 
     @NumberFormat(pattern = "##,##0.00000")
-    @Column(name = "longitude")
-    protected Double longitude;
+    @Column(name = "LONGITUDE")
+    @JsonProperty("longitude")
+    private Double longitude;
 
-    @Column(name = "contactPerson")
+    @Column(name = "CONTACT_PERSON")
+    @JsonProperty("contactPerson")
     private String contactPerson;
 
-    @Column(name = "contactNumber")
+    @Column(name = "CONTACT_NUMBER")
+    @JsonProperty("contactNumber")
     private String contactNumber;
 
-    @Column(name = "comment")
+    @Column(name = "COMMENT")
+    @JsonProperty("comment")
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "point_id")
-    private Person point;
-
-    @OneToMany(mappedBy = "task")
-    private List<Task> task;
-
-    public Person getPoint() {
-        return point;
+    public String getComment() {
+        return comment;
     }
 
-    public void setPoint(Person point) {
-        this.point = point;
-    }
-
-    public String getOuterID() {
-        return outerID;
-    }
-
-    public void setOuterID(String outerID) {
-        this.outerID = outerID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getContactNumber() {
@@ -113,19 +66,59 @@ public class Point {
         this.contactNumber = contactNumber;
     }
 
-    public String getComment() {
-        return comment;
+    public String getContactPerson() {
+        return contactPerson;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
 
-    public List<Task> getTask() {
-        return task;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setTask(List<Task> task) {
-        this.task = task;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOuterID() {
+        return outerID;
+    }
+
+    public void setOuterID(String outerID) {
+        this.outerID = outerID;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

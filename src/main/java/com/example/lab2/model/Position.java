@@ -1,47 +1,54 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
+
+@Table(name = "POSITION")
 @Entity
-@Table(name = "position")
 public class Position {
-
-    public Position() {
-    }
-
+    @GeneratedValue
+    @Column(name = "ID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
-    @Column(name = "description")
+
+    @Column(name = "DESCRIPTION")
+    @JsonProperty("description")
     private String description;
 
-    @Column(name = "comment")
+    @Column(name = "COMMENT")
+    @JsonProperty("comment")
     private String comment;
 
-    @OneToMany(mappedBy = "consumables")
-    private List<Consumables> consumables;
+    @JoinTable(name = "POSITION_POSITION_LINK",
+            joinColumns = @JoinColumn(name = "POSITION_1_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "POSITION_2_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    @JsonProperty("consumables")
+    private List<Position> consumables;
 
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Task position;
+    @JoinColumn(name = "TASK_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Task task;
 
-    public Task getPosition() {
-        return position;
+    public Task getTask() {
+        return task;
     }
 
-    public void setPosition(Task position) {
-        this.position = position;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-
-    public String getDescription() {
-        return description;
+    public List<Position> getConsumables() {
+        return consumables;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setConsumables(List<Position> consumables) {
+        this.consumables = consumables;
     }
 
     public String getComment() {
@@ -52,11 +59,19 @@ public class Position {
         this.comment = comment;
     }
 
-    public List<Consumables> getConsumables() {
-        return consumables;
+    public String getDescription() {
+        return description;
     }
 
-    public void setConsumables(List<Consumables> consumables) {
-        this.consumables = consumables;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

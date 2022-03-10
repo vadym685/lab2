@@ -1,37 +1,30 @@
 package com.example.lab2.model;
 
 import javax.persistence.*;
+import java.util.UUID;
 
+
+@Table(name = "CONSUMABLES")
 @Entity
-@Table(name = "consumables")
 public class Consumables {
-
-    public Consumables() {
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "consumables_id")
-    private Position consumables;
-
+    @GeneratedValue
+    @Column(name = "ID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
-    @Column(name = "description")
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "comment")
+    @Column(name = "COMMENT")
     private String comment;
 
-    public Position getConsumables() {
-        return consumables;
+    public String getComment() {
+        return comment;
     }
 
-    public void setConsumables(Position consumables) {
-        this.consumables = consumables;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
-
-
 
     public String getDescription() {
         return description;
@@ -41,11 +34,11 @@ public class Consumables {
         this.description = description;
     }
 
-    public String getComment() {
-        return comment;
+    public UUID getId() {
+        return id;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

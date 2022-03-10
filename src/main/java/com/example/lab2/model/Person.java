@@ -1,59 +1,54 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "person")
 public class Person {
-
-    public Person() {
-    }
-
+    @GeneratedValue
+    @Column(name = "ID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
-    @Column(name = "outer_id")
+    @Column(name = "OUTER_ID")
     private String outerID;
 
-    @Column
+    @Column(name = "FULL_NAME")
     private String fullName;
 
-    @Column
-    private int phoneNumber;
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
 
-    @Column
+    @JoinColumn(name = "MANAGER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Person manager;
+
+    @Column(name = "NAME")
     private String name;
 
-    @Column
-    private int manager_id;
+    @JoinTable(name = "TASK_PERSON_LINK",
+            joinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "TASK_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    private List<Task> tasks;
 
-    @OneToMany(mappedBy = "point")
-    private List<Point> point;
-
-    public String getOuterID() {
-        return outerID;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
-    public void setOuterID(String outerID) {
-        this.outerID = outerID;
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Person getManager() {
+        return manager;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setManager(Person manager) {
+        this.manager = manager;
     }
 
     public String getName() {
@@ -64,11 +59,35 @@ public class Person {
         this.name = name;
     }
 
-    public List<Point> getPoint() {
-        return point;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPoint(List<Point> point) {
-        this.point = point;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getOuterID() {
+        return outerID;
+    }
+
+    public void setOuterID(String outerID) {
+        this.outerID = outerID;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }
