@@ -14,20 +14,29 @@ public class Person {
     private UUID id;
 
     @Column(name = "OUTER_ID")
+    @JsonProperty("outerID")
     private String outerID;
 
     @Column(name = "FULL_NAME")
+    @JsonProperty("fullName")
     private String fullName;
 
     @Column(name = "PHONE_NUMBER")
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
 
     @JoinColumn(name = "MANAGER_ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonProperty("manager")
     private Person manager;
 
     @Column(name = "NAME")
+    @JsonProperty("name")
     private String name;
+
+    @Column(name = "IS_MANAGER")
+    @JsonProperty("isManager")
+    private Boolean isManager;
 
     @JoinTable(name = "TASK_PERSON_LINK",
             joinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"),
@@ -89,5 +98,9 @@ public class Person {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Boolean isManager() {
+        return isManager;
     }
 }

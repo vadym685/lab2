@@ -1,5 +1,7 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -12,10 +14,16 @@ public class Consumables {
     @Id
     private UUID id;
 
+    @Column(name = "OUTER_ID")
+    @JsonProperty("outerID")
+    private String outerID;
+
     @Column(name = "DESCRIPTION")
+    @JsonProperty("description")
     private String description;
 
     @Column(name = "COMMENT")
+    @JsonProperty("comment")
     private String comment;
 
     public String getComment() {
@@ -40,5 +48,13 @@ public class Consumables {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getOuterID() {
+        return outerID;
+    }
+
+    public void setOuterID(String outerID) {
+        this.outerID = outerID;
     }
 }
