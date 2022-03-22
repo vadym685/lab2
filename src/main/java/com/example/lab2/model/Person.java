@@ -8,14 +8,10 @@ import java.util.UUID;
 
 @Entity
 public class Person {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     @Id
-    private UUID id;
-
-    @Column(name = "OUTER_ID")
-    @JsonProperty("outerID")
-    private String outerID;
+    private long id;
 
     @Column(name = "FULL_NAME")
     @JsonProperty("fullName")
@@ -37,6 +33,9 @@ public class Person {
     @Column(name = "IS_MANAGER")
     @JsonProperty("isManager")
     private Boolean isManager;
+
+    @JsonProperty("managerID")
+    private String managerID;
 
     @JoinTable(name = "TASK_PERSON_LINK",
             joinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"),
@@ -84,23 +83,23 @@ public class Person {
         this.fullName = fullName;
     }
 
-    public String getOuterID() {
-        return outerID;
-    }
-
-    public void setOuterID(String outerID) {
-        this.outerID = outerID;
-    }
-
-    public UUID getId() {
+    public long  getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     public Boolean isManager() {
         return isManager;
+    }
+
+    public String getManagerID() {
+        return managerID;
+    }
+
+    public void setManagerID(String managerID) {
+        this.managerID = managerID;
     }
 }

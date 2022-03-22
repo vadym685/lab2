@@ -14,23 +14,21 @@ import java.util.UUID;
 })
 @Entity
 public class Task {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     @Id
-    private UUID id;
-
-    @Column(name = "OUTER_ID")
-    @JsonProperty("outerID")
-    private String outerID;
+    private long  id;
 
     @Column(name = "DATE")
     @JsonProperty("date")
     private LocalDate date;
 
     @JoinColumn(name = "POINT_ID")
-    @JsonProperty("pointID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Point point;
+
+    @JsonProperty("pointID")
+    private String pointID;
 
     @OneToMany(mappedBy = "task")
     @JsonProperty("positions")
@@ -75,19 +73,19 @@ public class Task {
         this.date = date;
     }
 
-    public String getOuterID() {
-        return outerID;
-    }
-
-    public void setOuterID(String outerID) {
-        this.outerID = outerID;
-    }
-
-    public UUID getId() {
+    public long  getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public String getPointID() {
+        return pointID;
+    }
+
+    public void setPointID(String pointID) {
+        this.pointID = pointID;
     }
 }

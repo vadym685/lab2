@@ -10,11 +10,10 @@ import java.util.UUID;
 @Table(name = "POSITION")
 @Entity
 public class Position {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     @Id
-    private UUID id;
-
+    private long id;
 
     @Column(name = "DESCRIPTION")
     @JsonProperty("description")
@@ -67,11 +66,11 @@ public class Position {
         this.description = description;
     }
 
-    public UUID getId() {
+    public long  getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long  id) {
         this.id = id;
     }
 }

@@ -9,14 +9,10 @@ import java.util.UUID;
 @Table(name = "CONSUMABLES")
 @Entity
 public class Consumables {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     @Id
-    private UUID id;
-
-    @Column(name = "OUTER_ID")
-    @JsonProperty("outerID")
-    private String outerID;
+    private long  id;
 
     @Column(name = "DESCRIPTION")
     @JsonProperty("description")
@@ -42,19 +38,11 @@ public class Consumables {
         this.description = description;
     }
 
-    public UUID getId() {
+    public long  getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long  id) {
         this.id = id;
-    }
-
-    public String getOuterID() {
-        return outerID;
-    }
-
-    public void setOuterID(String outerID) {
-        this.outerID = outerID;
     }
 }
