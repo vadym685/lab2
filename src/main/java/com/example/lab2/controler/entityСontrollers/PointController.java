@@ -1,4 +1,4 @@
-package com.example.lab2.controler.entity_controllers;
+package com.example.lab2.controler.entityСontrollers;
 
 import com.example.lab2.model.Point;
 import com.example.lab2.repository.PointRepo;

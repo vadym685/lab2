@@ -3,8 +3,6 @@ package com.example.lab2.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.UUID;
-
 
 @Table(name = "CONSUMABLES")
 @Entity

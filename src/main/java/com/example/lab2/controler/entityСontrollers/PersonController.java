@@ -1,7 +1,6 @@
-package com.example.lab2.controler.entity_controllers;
+package com.example.lab2.controler.entityСontrollers;
 
 import com.example.lab2.model.Person;
-import com.example.lab2.model.Task;
 import com.example.lab2.repository.PersonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class PersonController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 
     @Autowired
@@ -79,3 +79,9 @@ public class PersonController {
     }
 
 }
+
+//class A{
+//    public void foo(){
+//        System.out.println(personsRepository);
+//    }
+//}

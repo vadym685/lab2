@@ -1,20 +1,16 @@
-package com.example.lab2.controler.entity_controllers;
+package com.example.lab2.controler.entityСontrollers;
 
 import com.example.lab2.model.Task;
 import com.example.lab2.repository.TaskRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.YamlJsonParser;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.yaml.snakeyaml.Yaml;
 
-import javax.swing.text.html.HTML;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +23,6 @@ public class TaskController {
 
     @Autowired
     private TaskRepo taskRepository;
-
 
     @GetMapping("/tasks")
     public List<Task> getAllTasks() {

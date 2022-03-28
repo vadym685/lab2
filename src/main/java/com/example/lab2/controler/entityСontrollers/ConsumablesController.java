@@ -1,7 +1,6 @@
-package com.example.lab2.controler.entity_controllers;
+package com.example.lab2.controler.entityСontrollers;
 
 import com.example.lab2.model.Consumables;
-import com.example.lab2.model.Task;
 import com.example.lab2.repository.ConsumablesRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

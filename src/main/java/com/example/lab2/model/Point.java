@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
-
 
 @Table(name = "POINT")
 @Entity
