@@ -18,12 +18,17 @@
     <a href="/contact">Contact</a>
     <div class="# start-home"></div>
 </nav>
-<br>
-<form method = get action="searchPointByID" >
-    <input type="hidden" name="action" value = "Search">
 
-    Enter ID: <input type="text" name="search_string">
+<br>
+<form method=get action="searchPointByID">
+    <input type="hidden" name="action" value="Search">
+
+   Search by <select id="searchField" name="searchField">
+        <option value="ID">Id</option>
+        <option value="NAME">Name</option>
+    </select>: <input type="text" name="search_string">
 </form>
+
 <br>
 <table>
     <tr>

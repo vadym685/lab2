@@ -21,16 +21,21 @@ public class PointBrowseViewController {
     @RequestMapping(value = {"/pointsBrowse"}, method = RequestMethod.GET)
     public ModelAndView viewpointsBrowse() {
 
-        return new ModelAndView("browse/pointsBrowse",Collections.singletonMap("tempPointsMap",pointRepository.findAll()));
+        return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
 
     }
 
     @RequestMapping(value = {"/searchPointByID"}, method = RequestMethod.GET)
-    public ModelAndView getPointByID(@RequestParam("search_string") String search_string, Model model) {
+    public ModelAndView getPointByID(@RequestParam("search_string") String search_string, String searchField) {
+        if (searchField.equals("ID") ) {
+            ArrayList<Long> arrayList = new ArrayList<Long>();
+            arrayList.add(Long.parseLong(search_string));
 
-        ArrayList<Long> arrayList = new ArrayList<Long>();
-        arrayList.add(Long.parseLong(search_string));
-
-        return new ModelAndView("browse/pointsBrowse",Collections.singletonMap("tempPointsMap",pointRepository.findAllById(arrayList)));
+            return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAllById(arrayList)));
+        }else if (searchField.equals("NAME")){
+            return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findByName(search_string)));
+        }
+        return new ModelAndView("browse/pointsBrowse");
     }
+
 }
