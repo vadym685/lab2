@@ -18,10 +18,13 @@
     <a href="/contact">Contact</a>
     <div class="# start-home"></div>
 </nav>
-<%--<form method = get action="questions" >--%>
-<%--    <input type="hidden" name="action" value = "Search">--%>
+<br>
+<form method = get action="searchPointByID" >
+    <input type="hidden" name="action" value = "Search">
 
-<%--    Search: <input type="text" name="search_string">--%>
+    Enter ID: <input type="text" name="search_string">
+</form>
+<br>
 <table>
     <tr>
         <th>ID</th>
@@ -50,7 +53,7 @@
     </c:forEach>
 
 </table>
-<%--</form>--%>
+
 
 </body>
 

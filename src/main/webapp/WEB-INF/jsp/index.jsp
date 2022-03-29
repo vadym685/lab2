@@ -29,16 +29,7 @@
 <%--    <input type="hidden" name="action" value = "Search">--%>
 
 <%--    Search: <input type="text" name="search_string">--%>
-<%--<table>--%>
-<%--    <tr>--%>
-<%--        <th >ID</th>--%>
-<%--        <th >FIRST_NAME</td>--%>
-<%--        <th >LAST_NAME</td>--%>
-<%--        <th>SPECIALTY</td>--%>
-<%--        <th>SKILLS</td>--%>
-<%--        <th>ACCOUNTS</td>--%>
-<%--    </tr>--%>
-<%--</table>--%>
+
 <%--</form>--%>
 
 </body>
