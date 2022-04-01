@@ -16,15 +16,7 @@
     <a href="/contact">Contact</a>
     <div class="# start-home"></div>
 </nav>
-<%--<menu>--%>
-<%--    <li>Home</li>--%>
-<%--    <li>Tasks</li>--%>
-<%--    <li>Points</li>--%>
-<%--    <li>Persons</li>--%>
-<%--    <li>Consumables</li>--%>
-<%--    <li>Contact-us</li>--%>
-<%--    <li>About-us</li>--%>
-<%--</menu>--%>
+
 <%--<form method = get action="questions" >--%>
 <%--    <input type="hidden" name="action" value = "Search">--%>
 
