@@ -26,6 +26,7 @@ public class PointBrowseViewController {
         if (searchField.equals("ID") ) {
             ArrayList<Long> arrayList = new ArrayList<Long>();
             arrayList.add(Long.parseLong(searchString));
+
             return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAllById(arrayList)));
         }else if (searchField.equals("NAME")){
             return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findByName(searchString)));

@@ -4,6 +4,58 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        table#alter tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        table#alter tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        table#alter th {
+            color: white;
+            background-color: gray;
+        }
+
+        a:link, a:visited {
+            background-color: #2ae133;
+            color: #000000;
+            padding: 8px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        input[type=text], input[type=hidden] {
+            background-color: white;
+            background-image: url('icon/icons8-search.gif');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding-left: 40px;
+            border: 1px solid black;
+            margin: 5px;
+        }
+
+        input[type=button], input[type=submit], input[type=reset] {
+            background-color: #2ae133;
+            border: 1px solid black;
+            color: #000000;
+            padding: 8px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,6 +72,7 @@
 </nav>
 
 <br>
+
 <form method=get action="searchPoint">
     <input type="hidden" name="action" value="Search">
 
@@ -29,6 +82,9 @@
 </select>: <input type="text" name="searchString">
 </form>
 
+<form method=get action="addPoint">
+    <input type="submit" value="Add new">
+</form>
 <br>
 <table id="table">
     <tr>

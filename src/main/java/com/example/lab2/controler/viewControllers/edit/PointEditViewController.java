@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 @Controller
@@ -21,15 +22,25 @@ public class PointEditViewController {
     private PointRepo pointRepository;
 
     @RequestMapping(value = {"/edit"}, method = RequestMethod.GET)
-    public ModelAndView getPointByID(@RequestParam("pointID") String pointID) {
+    public ModelAndView getPointByID(@RequestParam("pointID") String pointID,Model model) {
         ArrayList<Long> arrayList = new ArrayList<Long>();
         arrayList.add(Long.parseLong(pointID));
+
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", pointRepository.findAllById(arrayList)));
     }
 
     @RequestMapping(value = {"/saveEditedPoint"}, method = RequestMethod.POST)
     public ModelAndView saveEditedPoint(@ModelAttribute("point") Point point, Model model) {
         pointRepository.save(point);
-        return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
+        return new ModelAndView("redirect:" + "/pointsBrowse");
+//        return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
+    }
+
+    @RequestMapping(value = {"/addPoint"}, method = RequestMethod.GET)
+    public ModelAndView addNewPoint() {
+        List<Point> arrayList = new ArrayList<Point>();
+        arrayList.add(new Point());
+
+        return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", arrayList));
     }
 }
