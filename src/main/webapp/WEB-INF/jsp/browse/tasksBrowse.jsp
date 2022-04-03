@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -72,65 +73,42 @@
 
 <br>
 
-<form method=get action="searchPoint">
+<form method=get action="searchTask">
     <input type="hidden" name="action" value="Search">
 
     Search by <select id="searchField" name="searchField">
     <option value="ID">Id</option>
-    <option value="NAME">Name</option>
 </select>: <input type="text" name="searchString">
 </form>
 
-<form method=get action="addPoint">
+<form method=get action="addTask">
     <input type="submit" value="Add new">
 </form>
 <br>
 <table id="table">
     <tr>
         <th>ID</th>
-        <th>NAME</th>
-        <th>ADRESS</th>
-        <th>LATITUDE</th>
-        <th>LONGITUDE</th>
-        <th>CONTACT_PERSON</th>
-        <th>CONTACT_NUMBER</th>
-        <th>COMMENT</th>
+        <th>DATE</th>
+        <th>POINT_ID</th>
     </tr>
 
-    <%--@elvariable id="tempPointsMap" type="java.util.List"--%>
-    <c:forEach items="${tempPointsMap}" var="point">
+    <%--@elvariable id="tempTasksMap" type="java.util.List"--%>
+    <c:forEach items="${tempTasksMap}" var="task">
 
         <tr>
-            <td>${point.id}</td>
-            <td>${point.name}</td>
-            <td>${point.adress}</td>
-            <td>${point.latitude}</td>
-            <td>${point.longitude}</td>
-            <td>${point.contactPerson}</td>
-            <td>${point.contactNumber}</td>
-            <td>${point.comment}</td>
+            <td>${task.id}</td>
+            <td><fmt:formatDate value="${task.date}" pattern="yyyy-MM-dd" /></td>
+            <td>${task.point.id}</td>
             <td>
-                <a href="editPoint?pointID=${point.id}">Edit</a>
+                <a href="editTask?taskID=${task.id}">Edit</a>
             </td>
             <td>
-                <a href="deletePoint?pointID=${point.id}">Delete</a>
+                <a href="deleteTask?taskID=${task.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 
 </body>
-<%--<script src="https://code.jquery.com/jquery-2.2.4.js" type="text/javascript">--%>
 
-<%--    $(".approve").click(function(){--%>
-<%--        var selecred_btn_id = $(this).attr("id");--%>
-
-<%--        var sel_task_id = $("Task"+selecred_btn_id).attr("id");--%>
-
-<%--        window.alert(sel_task_id);--%>
-<%--        // your remaing code goes here--%>
-
-<%--    })--%>
-
-<%--</script>--%>
 </html>

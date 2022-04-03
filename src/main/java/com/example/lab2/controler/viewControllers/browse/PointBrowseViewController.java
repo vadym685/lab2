@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 @Controller
@@ -20,17 +19,26 @@ public class PointBrowseViewController {
 
     @RequestMapping(value = {"/pointsBrowse"}, method = RequestMethod.GET)
     public ModelAndView viewpointsBrowse() {
-
-        return new ModelAndView("browse/pointsBrowse",Collections.singletonMap("tempPointsMap",pointRepository.findAll()));
-
+        return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
     }
 
-    @RequestMapping(value = {"/searchPointByID"}, method = RequestMethod.GET)
-    public ModelAndView getPointByID(@RequestParam("search_string") String search_string, Model model) {
+    @RequestMapping(value = {"/searchPoint"}, method = RequestMethod.GET)
+    public ModelAndView getPoint(@RequestParam("searchString") String searchString, String searchField) {
+        if (searchField.equals("ID") ) {
+            ArrayList<Long> arrayList = new ArrayList<>();
+            arrayList.add(Long.parseLong(searchString));
 
-        ArrayList<Long> arrayList = new ArrayList<Long>();
-        arrayList.add(Long.parseLong(search_string));
+            return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAllById(arrayList)));
+        }else if (searchField.equals("NAME")){
+            return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findByName(searchString)));
+        }
+        return new ModelAndView("browse/pointsBrowse");
+    }
 
-        return new ModelAndView("browse/pointsBrowse",Collections.singletonMap("tempPointsMap",pointRepository.findAllById(arrayList)));
+    @RequestMapping(value = {"/deletePoint"}, method = RequestMethod.GET)
+    public ModelAndView deletePointByID(@RequestParam("pointID") String pointID, Model model) {
+        pointRepository.deleteById(Long.parseLong(pointID));
+
+        return new ModelAndView("redirect:" + "/pointsBrowse");
     }
 }
