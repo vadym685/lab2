@@ -2,9 +2,11 @@ package com.example.lab2.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "TASK", indexes = {
@@ -17,9 +19,10 @@ public class Task {
     @Id
     private long  id;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     @Column(name = "DATE")
     @JsonProperty("date")
-    private LocalDate date;
+    private Date date;
 
     @JoinColumn(name = "POINT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -63,11 +66,11 @@ public class Task {
         this.point = point;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

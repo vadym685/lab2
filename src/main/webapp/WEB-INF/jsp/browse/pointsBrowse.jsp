@@ -110,7 +110,10 @@
             <td>${point.contactNumber}</td>
             <td>${point.comment}</td>
             <td>
-                <a href="edit?pointID=${point.id}">Edit</a>
+                <a href="editPoint?pointID=${point.id}">Edit</a>
+            </td>
+            <td>
+                <a href="deletePoint?pointID=${point.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>

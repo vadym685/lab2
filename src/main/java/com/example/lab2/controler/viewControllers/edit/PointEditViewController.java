@@ -21,9 +21,9 @@ public class PointEditViewController {
     @Autowired
     private PointRepo pointRepository;
 
-    @RequestMapping(value = {"/edit"}, method = RequestMethod.GET)
-    public ModelAndView getPointByID(@RequestParam("pointID") String pointID,Model model) {
-        ArrayList<Long> arrayList = new ArrayList<Long>();
+    @RequestMapping(value = {"/editPoint"}, method = RequestMethod.GET)
+    public ModelAndView getPointByID(@RequestParam("pointID") String pointID, Model model) {
+        ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(pointID));
 
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", pointRepository.findAllById(arrayList)));
@@ -38,7 +38,7 @@ public class PointEditViewController {
 
     @RequestMapping(value = {"/addPoint"}, method = RequestMethod.GET)
     public ModelAndView addNewPoint() {
-        List<Point> arrayList = new ArrayList<Point>();
+        List<Point> arrayList = new ArrayList<>();
         arrayList.add(new Point());
 
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", arrayList));
