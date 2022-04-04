@@ -45,10 +45,11 @@ public class PositionEditViewController {
         Optional<Task> optionalTask = taskRepository.findById(Long.parseLong(taskID));
         Task task = optionalTask.orElseGet(Task::new);
 
+        taskRepository.save(task);
         position.setTask(task);
         positionRepo.save(position);
 
-        return new ModelAndView("redirect:" + "/editTask?taskID=" +taskID);
+        return new ModelAndView("redirect:" + "/editTask?taskID=" +task.getId());
     }
 
     @RequestMapping(value = {"/deletePosition"}, method = RequestMethod.GET)

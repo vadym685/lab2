@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <title>Welcome</title>
     <style>
-        input[type=text], input[type=hidden] {
+        input[type=text], input[type=hidden], input[type=date],table {
             font-size: 1rem;
             font-family: sans-serif;
             margin: 5px;
@@ -39,7 +39,6 @@
     <a href="/tasksBrowse">Tasks</a>
     <a href="/pointsBrowse">Points</a>
     <a href="/personsBrowse">Persons</a>
-    <a href="/consumablesBrowse">Consumables</a>
     <div class="# start-home"></div>
 </nav>
 <br>

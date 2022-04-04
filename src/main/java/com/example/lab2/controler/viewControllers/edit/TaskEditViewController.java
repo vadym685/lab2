@@ -38,7 +38,7 @@ public class TaskEditViewController {
     }
 
     @RequestMapping(value = {"/addTask"}, method = RequestMethod.GET)
-    public ModelAndView addNewTask() {
+    public ModelAndView addNewTask(Model model) {
         List<Task> arrayList = new ArrayList<>();
         arrayList.add(new Task());
 

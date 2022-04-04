@@ -35,6 +35,10 @@ public class Task {
     @JsonProperty("positions")
     private List<Position> positions;
 
+    @OneToMany(mappedBy = "task")
+    @JsonProperty("consumables")
+    private List<Consumables> consumables;
+
     @JoinTable(name = "TASK_PERSON_LINK",
             joinColumns = @JoinColumn(name = "TASK_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
@@ -88,5 +92,13 @@ public class Task {
 
     public void setPointID(String pointID) {
         this.pointID = pointID;
+    }
+
+    public List<Consumables> getConsumables() {
+        return consumables;
+    }
+
+    public void setConsumables(List<Consumables> consumables) {
+        this.consumables = consumables;
     }
 }

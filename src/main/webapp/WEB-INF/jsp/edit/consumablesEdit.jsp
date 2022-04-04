@@ -39,17 +39,17 @@
     <a href="/tasksBrowse">Tasks</a>
     <a href="/pointsBrowse">Points</a>
     <a href="/personsBrowse">Persons</a>
-
     <div class="# start-home"></div>
 </nav>
 <br>
 
-<%--@elvariable id="tempPosition" type="java.util.List"--%>
-<c:forEach items="${tempPosition}" var="position">
-    <form method=post action="saveEditedPosition?taskID=${taskID}" modelAttribute="position">
-        ID:<input name="id" type="text" value=${position.id} readonly><br>
-        DESCRIPTION:<input name="description" type="text" value=${position.description}><br>
-        COMMENT:<input name="comment" type="text" value=${position.comment}><br>
+<%--@elvariable id="tempConsumables" type="java.util.List"--%>
+<c:forEach items="${tempConsumables}" var="consumables">
+    <form method=post action="saveEditedConsumables?taskID=${taskID}" modelAttribute="consumables">
+        ID:<input name="id" type="text" value=${consumables.id} readonly><br>
+        NAME:<input name="name" type="text" value=${consumables.name}><br>
+        DESCRIPTION:<input name="description" type="text" value=${consumables.description}><br>
+        COMMENT:<input name="comment" type="text" value=${consumables.comment}><br>
         <input type="submit" value="Save">
     </form>
 </c:forEach>

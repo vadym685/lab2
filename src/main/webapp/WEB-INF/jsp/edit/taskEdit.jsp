@@ -28,7 +28,7 @@
             background-color: gray;
         }
 
-        input[type=text], input[type=hidden], input[type=date] {
+        input[type=text], input[type=hidden], input[type=date],table {
             font-size: 1rem;
             font-family: sans-serif;
             margin: 5px;
@@ -64,7 +64,6 @@
     <a href="/tasksBrowse">Tasks</a>
     <a href="/pointsBrowse">Points</a>
     <a href="/personsBrowse">Persons</a>
-    <a href="/consumablesBrowse">Consumables</a>
     <div class="# start-home"></div>
 </nav>
 <br>
@@ -76,9 +75,11 @@
         DATE:<input name="date" type="date" value=${task.date}><br>
         POINT:<input name="point" type="text" value=${task.point.id}><br>
 
+        <br>
         <a href="addPosition?taskID=${task.id}">Add new position</a>
+        <br>
 
-        <table id="table">
+        <table id="positionTable">
             <tr>
                 <th>ID</th>
                 <th>DESCRIPTION</th>
@@ -98,6 +99,35 @@
                 </tr>
             </c:forEach>
         </table>
+
+        <br>
+        <a href="addConsumables?taskID=${task.id}">Add new consumables</a>
+        <br>
+
+        <table id="consumablesTable">
+            <tr>
+
+                <th>ID</th>
+                <th>NAME</th>
+                <th>DESCRIPTION</th>
+                <th>COMMENT</th>
+            </tr>
+            <c:forEach items="${task.consumables}" var="taskConsumables">
+                <tr>
+                    <td>${taskConsumables.id}</td>
+                    <td>${taskConsumables.name}</td>
+                    <td>${taskConsumables.description}</td>
+                    <td>${taskConsumables.comment}</td>
+                    <td>
+                        <a href="editConsumables?consumablesID=${taskConsumables.id}&taskID=${task.id}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="deleteConsumables?consumablesID=${taskConsumables.id}&taskID=${task.id}">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+
 
         <input type="submit" value="Save">
     </form>
