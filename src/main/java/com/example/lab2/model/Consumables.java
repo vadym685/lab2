@@ -16,9 +16,25 @@ public class Consumables {
     @JsonProperty("description")
     private String description;
 
+    @Column(name = "NAME")
+    @JsonProperty("name")
+    private String name;
+
     @Column(name = "COMMENT")
     @JsonProperty("comment")
     private String comment;
+
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 
     public String getComment() {
         return comment;
@@ -42,5 +58,13 @@ public class Consumables {
 
     public void setId(long  id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

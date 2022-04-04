@@ -21,13 +21,6 @@ public class Position {
     @JsonProperty("comment")
     private String comment;
 
-    @JoinTable(name = "POSITION_POSITION_LINK",
-            joinColumns = @JoinColumn(name = "POSITION_1_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "POSITION_2_ID", referencedColumnName = "ID"))
-    @ManyToMany
-    @JsonProperty("consumables")
-    private List<Position> consumables;
-
     @JoinColumn(name = "TASK_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Task task;
@@ -38,14 +31,6 @@ public class Position {
 
     public void setTask(Task task) {
         this.task = task;
-    }
-
-    public List<Position> getConsumables() {
-        return consumables;
-    }
-
-    public void setConsumables(List<Position> consumables) {
-        this.consumables = consumables;
     }
 
     public String getComment() {

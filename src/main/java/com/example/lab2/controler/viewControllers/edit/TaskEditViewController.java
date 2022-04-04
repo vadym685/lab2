@@ -1,6 +1,7 @@
 package com.example.lab2.controler.viewControllers.edit;
 
 import com.example.lab2.model.Task;
+import com.example.lab2.repository.PositionRepo;
 import com.example.lab2.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ import java.util.List;
 public class TaskEditViewController {
     @Autowired
     private TaskRepo taskRepository;
+    @Autowired
+    private PositionRepo positionRepo;
 
     @RequestMapping(value = {"/editTask"}, method = RequestMethod.GET)
     public ModelAndView getTaskByID(@RequestParam("taskID") String taskID, Model model) {
@@ -35,10 +38,12 @@ public class TaskEditViewController {
     }
 
     @RequestMapping(value = {"/addTask"}, method = RequestMethod.GET)
-    public ModelAndView addNewTask() {
+    public ModelAndView addNewTask(Model model) {
         List<Task> arrayList = new ArrayList<>();
         arrayList.add(new Task());
 
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", arrayList));
     }
+
+
 }
