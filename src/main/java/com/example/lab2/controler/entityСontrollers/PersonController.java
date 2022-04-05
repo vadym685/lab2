@@ -79,9 +79,3 @@ public class PersonController {
     }
 
 }
-
-//class A{
-//    public void foo(){
-//        System.out.println(personsRepository);
-//    }
-//}
