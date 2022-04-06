@@ -50,7 +50,10 @@
         ID:<input name="id" type="text" value=${position.id} readonly><br>
         DESCRIPTION:<input name="description" type="text" value=${position.description}><br>
         COMMENT:<input name="comment" type="text" value=${position.comment}><br>
-        <input type="submit" value="Save">
+
+        <input name="saveClose" type="submit" value="Save&Close">
+        <input name="close" type="submit" value="Close">
+
     </form>
 </c:forEach>
 

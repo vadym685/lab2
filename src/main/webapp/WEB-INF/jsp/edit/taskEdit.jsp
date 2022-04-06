@@ -28,7 +28,7 @@
             background-color: gray;
         }
 
-        input[type=text], input[type=hidden], input[type=date],table {
+        input[type=text], input[type=hidden], input[type=date], table {
             font-size: 1rem;
             font-family: sans-serif;
             margin: 5px;
@@ -86,6 +86,7 @@
                 <th>COMMENT</th>
             </tr>
             <c:forEach items="${task.positions}" var="taskPositions">
+
                 <tr>
                     <td>${taskPositions.id}</td>
                     <td>${taskPositions.description}</td>
@@ -128,8 +129,9 @@
             </c:forEach>
         </table>
 
-
-        <input type="submit" value="Save">
+        <input name="save" type="submit" value="Save">
+        <input name="saveClose" type="submit" value="Save&Close">
+        <input name="close" type="submit" value="Close">
     </form>
 </c:forEach>
 

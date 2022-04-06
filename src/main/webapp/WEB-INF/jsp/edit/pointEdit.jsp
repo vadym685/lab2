@@ -54,7 +54,11 @@
         CONTACT_PERSON:<input name="contactPerson" type="text" value=${point.contactPerson}><br>
         CONTACT_NUMBER:<input name="contactNumber" type="text" value=${point.contactNumber}><br>
         COMMENT:<input name="comment" type="text" value=${point.comment}><br>
-        <input type="submit" value="Save">
+
+        <input name="save" type="submit" value="Save">
+        <input name="saveClose" type="submit" value="Save&Close">
+        <input name="close" type="submit" value="Close">
+
     </form>
 </c:forEach>
 

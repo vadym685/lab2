@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,20 +38,27 @@ public class ConsumablesEditViewController {
     }
 
     @RequestMapping(value = {"/saveEditedConsumables"}, method = RequestMethod.POST)
-    public ModelAndView saveEditedConsumables(@ModelAttribute(value = "task") Consumables consumables, @RequestParam("taskID") String taskID, Model model) {
-        consumablesRepo.save(consumables);
-
+    public ModelAndView saveEditedConsumables(@ModelAttribute(value = "consumables") Consumables consumables, @RequestParam("taskID") String taskID, Model model, HttpServletRequest request) {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
         Optional<Task> optionalTask = taskRepository.findById(Long.parseLong(taskID));
         Task task = optionalTask.orElseGet(Task::new);
 
-        taskRepository.save(task);
+        if (request.getParameter("close") != null) {
+            return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());
+        }
+        if (request.getParameter("saveClose") != null) {
+            consumables.setTask(task);
+            consumablesRepo.save(consumables);
+
+            return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());
+        }
+
         consumables.setTask(task);
         consumablesRepo.save(consumables);
 
-        return new ModelAndView("redirect:" + "/editTask?taskID=" +task.getId());
+        return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());
     }
 
     @RequestMapping(value = {"/deleteConsumables"}, method = RequestMethod.GET)
@@ -66,13 +74,12 @@ public class ConsumablesEditViewController {
 
     @RequestMapping(value = {"/addConsumables"}, method = RequestMethod.GET)
     public ModelAndView addNewConsumables(@RequestParam("taskID") String taskID, Model model) {
+
         List<Consumables> arrayList = new ArrayList<>();
         Consumables consumables = new Consumables();
-        consumables.setTask(taskRepository.getById(Long.parseLong(taskID)));
 
         arrayList.add(consumables);
         model.addAttribute("taskID", taskID);
-
 
         return new ModelAndView("edit/consumablesEdit", Collections.singletonMap("tempConsumables", arrayList));
     }

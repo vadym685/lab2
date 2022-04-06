@@ -2,10 +2,10 @@ package com.example.lab2.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +13,7 @@ import java.util.List;
         @Index(name = "IDX_TASK_POINT_ID", columnList = "POINT_ID")
 })
 @Entity
+@Data
 public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
@@ -46,59 +47,5 @@ public class Task {
     @JsonProperty("persons")
     private List<Person> persons;
 
-    public List<Person> getPersons() {
-        return persons;
-    }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
-    }
-
-    public List<Position> getPositions() {
-        return positions;
-    }
-
-    public void setPositions(List<Position> positions) {
-        this.positions = positions;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    public void setPoint(Point point) {
-        this.point = point;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public long  getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getPointID() {
-        return pointID;
-    }
-
-    public void setPointID(String pointID) {
-        this.pointID = pointID;
-    }
-
-    public List<Consumables> getConsumables() {
-        return consumables;
-    }
-
-    public void setConsumables(List<Consumables> consumables) {
-        this.consumables = consumables;
-    }
 }

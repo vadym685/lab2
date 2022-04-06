@@ -47,14 +47,18 @@
 
 <%--@elvariable id="tempPersonMap" type="java.util.List"--%>
 <c:forEach items="${tempPersonMap}" var="persons">
-    <form method=post action="saveEditedPersons?taskID=${taskID}" modelAttribute="persons">
+    <form method=post action="saveEditedPersons" modelAttribute="persons">
         ID:<input name="id" type="text" value=${persons.id} readonly><br>
         NAME:<input name="name" type="text" value=${persons.name}><br>
         FULL_NAME:<input name="fullName" type="text" value=${persons.fullName}><br>
         PHONE_NUMBER:<input name="phoneNumber" type="text" value=${persons.phoneNumber}><br>
         ADMIN:<input name="admin" type="checkbox" ${persons.admin  ? "checked":""} ><br>
         MANAGER_ID:<input name="manager" type="text" value=${persons.manager.id}><br>
-        <input type="submit" value="Save">
+
+        <input name="save" type="submit" value="Save">
+        <input name="saveClose" type="submit" value="Save&Close">
+        <input name="close" type="submit" value="Close">
+
     </form>
 </c:forEach>
 
