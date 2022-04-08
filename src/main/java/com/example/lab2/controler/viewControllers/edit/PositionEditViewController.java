@@ -47,6 +47,7 @@ public class PositionEditViewController {
         }
         if (request.getParameter("saveClose") != null) {
             position.setTask(task);
+            taskRepository.save(task);
             positionRepo.save(position);
 
             return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());

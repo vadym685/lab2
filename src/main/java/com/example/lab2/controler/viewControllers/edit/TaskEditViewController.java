@@ -43,6 +43,14 @@ public class TaskEditViewController {
             taskRepository.save(task);
             return new ModelAndView("redirect:" + "/tasksBrowse");
         }
+        if (request.getParameter("saveAndAddPosition") != null) {
+            taskRepository.save(task);
+            return new ModelAndView("redirect:" + "/addPosition?taskID="+task.getId());
+        }
+        if (request.getParameter("saveAndAddConsumables") != null) {
+            taskRepository.save(task);
+            return new ModelAndView("redirect:" + "/addConsumables?taskID="+task.getId());
+        }
 
         return new ModelAndView("redirect:" + "/tasksBrowse");
     }

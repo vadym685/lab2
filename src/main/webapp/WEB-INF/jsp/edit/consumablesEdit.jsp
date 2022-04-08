@@ -32,7 +32,7 @@
 </head>
 
 <body>
-<h1>Welcome</h1>
+<h1>Consumables</h1>
 
 <nav>
     <a href="/">Home</a>

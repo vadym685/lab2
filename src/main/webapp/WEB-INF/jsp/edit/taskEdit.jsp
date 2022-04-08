@@ -57,7 +57,7 @@
 </head>
 
 <body>
-<h1>Welcome</h1>
+<h1>Task edit</h1>
 
 <nav>
     <a href="/">Home</a>
@@ -76,7 +76,7 @@
         POINT:<input name="point" type="text" value=${task.point.id}><br>
 
         <br>
-        <a href="addPosition?taskID=${task.id}">Add new position</a>
+        <input name="saveAndAddPosition" type="submit" value="Add new position">
         <br>
 
         <table id="positionTable">
@@ -99,10 +99,11 @@
                     </td>
                 </tr>
             </c:forEach>
+
         </table>
 
         <br>
-        <a href="addConsumables?taskID=${task.id}">Add new consumables</a>
+        <input name="saveAndAddConsumables" type="submit" value="Add new consumables">
         <br>
 
         <table id="consumablesTable">

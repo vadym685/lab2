@@ -50,6 +50,7 @@ public class ConsumablesEditViewController {
         }
         if (request.getParameter("saveClose") != null) {
             consumables.setTask(task);
+            taskRepository.save(task);
             consumablesRepo.save(consumables);
 
             return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());
