@@ -52,8 +52,9 @@
         NAME:<input name="name" type="text" value=${persons.name}><br>
         FULL_NAME:<input name="fullName" type="text" value=${persons.fullName}><br>
         PHONE_NUMBER:<input name="phoneNumber" type="text" value=${persons.phoneNumber}><br>
-        ADMIN:<input name="admin" type="checkbox" ${persons.admin  ? "checked":""} ><br>
-        MANAGER_ID:<input name="manager" type="text" value=${persons.manager.id}><br>
+        ADMIN:<input name="admin" type="checkbox" ${persons.admin  ? "checked":""}><br>
+        MANAGER_ID:<input name="manager" type="text" value=${persons.manager.id !=null ? persons.manager.id:0} readonly>
+        <input name="selectManager" type="submit" value="Select manager"><br>
 
         <input name="save" type="submit" value="Save">
         <input name="saveClose" type="submit" value="Save&Close">

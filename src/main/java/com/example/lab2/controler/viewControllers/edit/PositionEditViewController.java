@@ -4,7 +4,6 @@ import com.example.lab2.model.Position;
 import com.example.lab2.model.Task;
 import com.example.lab2.repository.PositionRepo;
 import com.example.lab2.repository.TaskRepo;
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class PositionEditViewController {
     @Autowired
     private PositionRepo positionRepo;
-
     @Autowired
     private TaskRepo taskRepository;
 

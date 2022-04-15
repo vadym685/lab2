@@ -23,7 +23,7 @@ public class PointEditViewController {
     private PointRepo pointRepository;
 
     @RequestMapping(value = {"/editPoint"}, method = RequestMethod.GET)
-    public ModelAndView getPointByID(@RequestParam("pointID") String pointID, Model model) {
+    public ModelAndView getPointByID(@RequestParam("pointID") String pointID) {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(pointID));
 
@@ -31,20 +31,20 @@ public class PointEditViewController {
     }
 
     @RequestMapping(value = {"/saveEditedPoint"}, method = RequestMethod.POST)
-    public ModelAndView saveEditedPoint(@ModelAttribute("point") Point point, Model model, HttpServletRequest request) {
+    public ModelAndView saveEditedPoint(@ModelAttribute("point") Point point, HttpServletRequest request) {
         if (request.getParameter("close") != null) {
-            return new ModelAndView("redirect:" + "/pointsBrowse");
-        }
-        if (request.getParameter("save") != null) {
-            pointRepository.save(point);
-            return new ModelAndView("redirect:" + "/editPoint?pointID=" + point.getId());
-        }
-        if (request.getParameter("saveClose") != null) {
-            pointRepository.save(point);
             return new ModelAndView("redirect:" + "/pointsBrowse");
         }
 
         pointRepository.save(point);
+
+        if (request.getParameter("save") != null) {
+            return new ModelAndView("redirect:" + "/editPoint?pointID=" + point.getId());
+        }
+        if (request.getParameter("saveClose") != null) {
+            return new ModelAndView("redirect:" + "/pointsBrowse");
+        }
+
         return new ModelAndView("redirect:" + "/pointsBrowse");
     }
 

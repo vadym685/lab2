@@ -73,7 +73,8 @@
     <form method=post action="saveEditedTask" modelAttribute="task">
         ID:<input name="id" type="text" value=${task.id} readonly><br>
         DATE:<input name="date" type="date" value=${task.date}><br>
-        POINT:<input name="point" type="text" value=${task.point.id}><br>
+        POINT:<input name="point" type="text" value=${task.point.id !=null ? task.point.id:0} readonly>
+        <input name="selectPoint" type="submit" value="Select point"><br>
 
         <br>
         <input name="saveAndAddPosition" type="submit" value="Add new position">
@@ -125,6 +126,38 @@
                     </td>
                     <td>
                         <a href="deleteConsumables?consumablesID=${taskConsumables.id}&taskID=${task.id}">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+        <br>
+        <input name="selectPerson" type="submit" value="Select person">
+        <br>
+        <table id="personsTable">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>FULL_NAME</th>
+                <th>PHONE_NUMBER</th>
+                <th>ADMIN</th>
+                <th>MANAGER_ID</th>
+            </tr>
+
+                <%--@elvariable id="tempPersonMap" type="java.util.List"--%>
+            <c:forEach items="${task.persons}" var="taskPerson">
+
+                <tr>
+                    <td>${taskPerson.id}</td>
+                    <td>${taskPerson.name}</td>
+                    <td>${taskPerson.fullName}</td>
+                    <td>${taskPerson.phoneNumber}</td>
+                    <td>${taskPerson.admin}</td>
+                    <td>${taskPerson.manager.id}</td>
+                    <td>
+                        <a href="editPersonFromTask?personID=${taskPerson.id}&taskID=${task.id}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="deletePersonFromTask?personID=${person.id}&taskID=${task.id}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

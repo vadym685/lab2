@@ -1,9 +1,11 @@
 package com.example.lab2.controler.viewControllers.edit;
 
+import com.example.lab2.model.Person;
+import com.example.lab2.model.Point;
 import com.example.lab2.model.Task;
-import com.example.lab2.repository.PositionRepo;
+import com.example.lab2.repository.PersonRepo;
+import com.example.lab2.repository.PointRepo;
 import com.example.lab2.repository.TaskRepo;
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TaskEditViewController {
     @Autowired
     private TaskRepo taskRepository;
     @Autowired
-    private PositionRepo positionRepo;
+    private PointRepo pointRepository;
+    @Autowired
+    private PersonRepo personRepository;
 
     @RequestMapping(value = {"/editTask"}, method = RequestMethod.GET)
-    public ModelAndView getTaskByID(@RequestParam("taskID") String taskID, Model model) {
+    public ModelAndView getTaskByID(@RequestParam("taskID") String taskID) {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
@@ -32,32 +37,45 @@ public class TaskEditViewController {
 
     @RequestMapping(value = {"/saveEditedTask"}, method = RequestMethod.POST)
     public ModelAndView saveEditedTask(@ModelAttribute(value = "task") Task task, Model model, HttpServletRequest request) {
+
+
         if (request.getParameter("close") != null) {
             return new ModelAndView("redirect:" + "/tasksBrowse");
         }
+
+        if (task.getId() != 0) {
+            List<Person> personList = personRepository.findByTasksIsContaining(task);
+            task.setPersons(personList);
+        }
+
+        taskRepository.save(task);
+
         if (request.getParameter("save") != null) {
-            taskRepository.save(task);
             return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());
         }
         if (request.getParameter("saveClose") != null) {
-            taskRepository.save(task);
             return new ModelAndView("redirect:" + "/tasksBrowse");
         }
         if (request.getParameter("saveAndAddPosition") != null) {
-            taskRepository.save(task);
-            return new ModelAndView("redirect:" + "/addPosition?taskID="+task.getId());
+            return new ModelAndView("redirect:" + "/addPosition?taskID=" + task.getId());
         }
         if (request.getParameter("saveAndAddConsumables") != null) {
-            taskRepository.save(task);
-            return new ModelAndView("redirect:" + "/addConsumables?taskID="+task.getId());
+            return new ModelAndView("redirect:" + "/addConsumables?taskID=" + task.getId());
+        }
+        if (request.getParameter("selectPoint") != null) {
+            model.addAttribute("taskID", task.getId());
+            return new ModelAndView("browse/pointsSelected", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
+        }
+        if (request.getParameter("selectPerson") != null) {
+            model.addAttribute("taskID", task.getId());
+            return new ModelAndView("browse/personsSelected", Collections.singletonMap("tempPersonMap", personRepository.findAll()));
         }
 
         return new ModelAndView("redirect:" + "/tasksBrowse");
     }
 
-
     @RequestMapping(value = {"/addTask"}, method = RequestMethod.GET)
-    public ModelAndView addNewTask(Model model) {
+    public ModelAndView addNewTask() {
         Task task = new Task();
 
         List<Task> arrayList = new ArrayList<>();
@@ -66,5 +84,40 @@ public class TaskEditViewController {
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", arrayList));
     }
 
+    @RequestMapping(value = {"/selectPoint"}, method = RequestMethod.GET)
+    public ModelAndView selectPoint(@RequestParam("taskID") String taskID, @RequestParam("pointID") String pointID) {
+        ArrayList<Long> arrayList = new ArrayList<>();
+        arrayList.add(Long.parseLong(taskID));
+
+        Optional<Point> optionalPoint = pointRepository.findById(Long.parseLong(pointID));
+        Point point = optionalPoint.orElseGet(Point::new);
+
+        Optional<Task> optionalTask = taskRepository.findById(Long.parseLong(taskID));
+        Task task = optionalTask.orElseGet(Task::new);
+
+        task.setPoint(point);
+
+        taskRepository.save(task);
+        return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
+    }
+
+    @RequestMapping(value = {"/selectPerson"}, method = RequestMethod.GET)
+    public ModelAndView selectPerson(@RequestParam("taskID") String taskID, @RequestParam("personID") String personID) {
+        ArrayList<Long> arrayList = new ArrayList<>();
+        arrayList.add(Long.parseLong(taskID));
+
+        Optional<Task> optionalTask = taskRepository.findById(Long.parseLong(taskID));
+        Task task = optionalTask.orElseGet(Task::new);
+
+        Optional<Person> optionalPerson = personRepository.findById(Long.parseLong(personID));
+        Person person = optionalPerson.orElseGet(Person::new);
+
+        List<Person> personList = personRepository.findByTasksIsContaining(task);
+        personList.add(person);
+        task.setPersons(personList);
+
+        taskRepository.save(task);
+        return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
+    }
 
 }

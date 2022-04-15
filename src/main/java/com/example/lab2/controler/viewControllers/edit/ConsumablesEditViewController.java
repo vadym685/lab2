@@ -38,7 +38,7 @@ public class ConsumablesEditViewController {
     }
 
     @RequestMapping(value = {"/saveEditedConsumables"}, method = RequestMethod.POST)
-    public ModelAndView saveEditedConsumables(@ModelAttribute(value = "consumables") Consumables consumables, @RequestParam("taskID") String taskID, Model model, HttpServletRequest request) {
+    public ModelAndView saveEditedConsumables(@ModelAttribute(value = "consumables") Consumables consumables, @RequestParam("taskID") String taskID, HttpServletRequest request) {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
