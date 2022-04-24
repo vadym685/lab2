@@ -16,11 +16,5 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = {"/questions231"}, method = RequestMethod.GET)
-    public String viewQuestions(@RequestParam("search_string") String search_string, Model model) {
-
-        return "questionsList";
-    }
-
 
 }

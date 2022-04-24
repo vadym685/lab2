@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -34,14 +35,6 @@
     <a href="/personsBrowse">Persons</a>
     <div class="# start-home"></div>
 </nav>
-
-<%--<form method = get action="questions" >--%>
-<%--    <input type="hidden" name="action" value = "Search">--%>
-
-<%--    Search: <input type="text" name="search_string">--%>
-
-<%--</form>--%>
-
 </body>
 
 </html>
