@@ -9,8 +9,10 @@
 </head>
 
 <body>
-<h1>Person</h1>
-
+<div>
+    <div class="left"><h1>Person edit</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>

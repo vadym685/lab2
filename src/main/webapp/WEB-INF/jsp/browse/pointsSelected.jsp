@@ -9,8 +9,10 @@
 </head>
 
 <body>
-<h1>Points browse</h1>
-
+<div>
+    <div class="left"><h1>Points selected</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>

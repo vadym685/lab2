@@ -31,7 +31,7 @@ public class Application {
     public void printApplicationUrl(ApplicationStartedEvent event) {
         LoggerFactory.getLogger(Application.class).info("Application started at "
                 + "http://localhost:"
-                + environment.getProperty("local.server.port")
+                + environment.getProperty("local.server.port") + "/login"
         );
     }
 }

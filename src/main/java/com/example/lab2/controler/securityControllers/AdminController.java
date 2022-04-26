@@ -36,4 +36,9 @@ public class AdminController {
         model.addAttribute("allUsers", userService.usergtList(userId));
         return new ModelAndView("security/admin");
     }
+
+    @GetMapping("/logoutApp")
+    public ModelAndView logoutApp(Model model) {
+        return new ModelAndView("redirect:" + "/logout");
+    }
 }

@@ -10,7 +10,12 @@
 </head>
 
 <body>
-<h1>Tasks browse</h1>
+
+<div>
+    <div class="left"><h1>Tasks browse</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
+
 
 <nav>
     <a href="/">Home</a>
@@ -46,7 +51,7 @@
 
         <tr>
             <td>${task.id}</td>
-            <td><fmt:formatDate value="${task.date}" pattern="yyyy-MM-dd" /></td>
+            <td><fmt:formatDate value="${task.date}" pattern="yyyy-MM-dd"/></td>
             <td>${task.point.id}</td>
             <td>
                 <a href="editTask?taskID=${task.id}">Edit</a>

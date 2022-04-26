@@ -10,7 +10,10 @@
 
 <body>
 <h1>Consumables</h1>
-
+<div>
+    <div class="left"><h1>Consumables edit</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>
