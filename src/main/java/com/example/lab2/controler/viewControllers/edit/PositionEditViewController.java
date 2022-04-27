@@ -24,11 +24,18 @@ public class PositionEditViewController {
     private TaskRepo taskRepository;
 
     @RequestMapping(value = {"/editPosition"}, method = RequestMethod.GET)
-    public ModelAndView getPositionByID(@RequestParam("taskID") String taskID, @RequestParam("positionID") String positionID, Model model) {
+    public ModelAndView getPositionByID(@RequestParam("taskID") String taskID, @RequestParam("positionID") String positionID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username",  request.getUserPrincipal().getName());
         return new ModelAndView("edit/positionEdit", Collections.singletonMap("tempPosition", positionRepo.findAllById(arrayList)));
     }
 
@@ -58,25 +65,37 @@ public class PositionEditViewController {
     }
 
     @RequestMapping(value = {"/deletePosition"}, method = RequestMethod.GET)
-    public ModelAndView deletePositionByID(@RequestParam("positionID") String positionID, @RequestParam("taskID") String taskID, Model model) {
+    public ModelAndView deletePositionByID(@RequestParam("positionID") String positionID, @RequestParam("taskID") String taskID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         positionRepo.deleteById(Long.parseLong(positionID));
 
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username",  request.getUserPrincipal().getName());
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 
     @RequestMapping(value = {"/addPosition"}, method = RequestMethod.GET)
-    public ModelAndView addNewPosition(@RequestParam("taskID") String taskID, Model model) {
+    public ModelAndView addNewPosition(@RequestParam("taskID") String taskID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
 
         List<Position> arrayList = new ArrayList<>();
         Position position = new Position();
 
         arrayList.add(position);
         model.addAttribute("taskID", taskID);
-
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username",  request.getUserPrincipal().getName());
         return new ModelAndView("edit/positionEdit", Collections.singletonMap("tempPosition", arrayList));
     }
 }

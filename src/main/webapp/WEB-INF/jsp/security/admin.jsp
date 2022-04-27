@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +73,7 @@
 <body>
 <div>
     <div class="left"><h1>Admin panel</h1></div>
-    <div class="right"><a href="logoutApp">Logout</a></div>
+    <div class="right">Welcome, ${username} <a href="logoutApp">Logout</a></div>
 </div>
 <nav>
     <a href="/">Home</a>

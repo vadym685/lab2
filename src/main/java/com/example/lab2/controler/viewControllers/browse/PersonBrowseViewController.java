@@ -25,6 +25,7 @@ public class PersonBrowseViewController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("browse/personsBrowse", Collections.singletonMap("tempPersonMap", personRepository.findAll()));
     }
 

@@ -29,11 +29,18 @@ public class ConsumablesEditViewController {
     private TaskRepo taskRepository;
 
     @RequestMapping(value = {"/editConsumables"}, method = RequestMethod.GET)
-    public ModelAndView getConsumablesByID(@RequestParam("taskID") String taskID, @RequestParam("consumablesID") String consumablesID, Model model) {
+    public ModelAndView getConsumablesByID(@RequestParam("taskID") String taskID, @RequestParam("consumablesID") String consumablesID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("edit/consumablesEdit", Collections.singletonMap("tempConsumables", consumablesRepo.findAllById(arrayList)));
     }
 
@@ -63,25 +70,37 @@ public class ConsumablesEditViewController {
     }
 
     @RequestMapping(value = {"/deleteConsumables"}, method = RequestMethod.GET)
-    public ModelAndView deleteConsumablesByID(@RequestParam("consumablesID") String consumablesID, @RequestParam("taskID") String taskID, Model model) {
+    public ModelAndView deleteConsumablesByID(@RequestParam("consumablesID") String consumablesID, @RequestParam("taskID") String taskID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         consumablesRepo.deleteById(Long.parseLong(consumablesID));
 
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 
     @RequestMapping(value = {"/addConsumables"}, method = RequestMethod.GET)
-    public ModelAndView addNewConsumables(@RequestParam("taskID") String taskID, Model model) {
+    public ModelAndView addNewConsumables(@RequestParam("taskID") String taskID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
 
         List<Consumables> arrayList = new ArrayList<>();
         Consumables consumables = new Consumables();
 
         arrayList.add(consumables);
         model.addAttribute("taskID", taskID);
-
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("edit/consumablesEdit", Collections.singletonMap("tempConsumables", arrayList));
     }
 }

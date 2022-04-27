@@ -24,22 +24,23 @@ public class AdminController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         model.addAttribute("allUsers", userService.allUsers());
         return new ModelAndView("security/admin");
     }
 
     @PostMapping("/admin")
-    public ModelAndView  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
-                              @RequestParam(required = true, defaultValue = "" ) String action,
-                              Model model) {
-        if (action.equals("delete")){
+    public ModelAndView deleteUser(@RequestParam(required = true, defaultValue = "") Long userId,
+                                   @RequestParam(required = true, defaultValue = "") String action,
+                                   Model model) {
+        if (action.equals("delete")) {
             userService.deleteUser(userId);
         }
         return new ModelAndView("redirect:" + "/admin");
     }
 
     @GetMapping("/admin/gt/{userId}")
-    public ModelAndView  gtUser(@PathVariable("userId") Long userId, Model model) {
+    public ModelAndView gtUser(@PathVariable("userId") Long userId, Model model) {
         model.addAttribute("allUsers", userService.usergtList(userId));
         return new ModelAndView("security/admin");
     }

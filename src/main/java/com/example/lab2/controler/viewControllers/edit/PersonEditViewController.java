@@ -24,11 +24,17 @@ public class PersonEditViewController {
     private PersonRepo personRepository;
 
     @RequestMapping(value = {"/editPerson"}, method = RequestMethod.GET)
-    public ModelAndView getPersonByID(@RequestParam("personID") String personID, Model model) {
+    public ModelAndView getPersonByID(@RequestParam("personID") String personID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(personID));
 
         model.addAttribute("taskID", "");
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", personRepository.findAllById(arrayList)));
     }
 
@@ -46,7 +52,14 @@ public class PersonEditViewController {
             return new ModelAndView("redirect:" + "/personsBrowse");
         }
         if (request.getParameter("selectManager") != null) {
+            String isAdmin = "";
+            if (request.isUserInRole("ROLE_ADMIN")) {
+                isAdmin = "<a href=\"/admin\">Admin panel</a>";
+            }
+
             model.addAttribute("personID", person.getId());
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username",  request.getUserPrincipal().getName());
             return new ModelAndView("browse/managerSelected", Collections.singletonMap("tempPersonMap", personRepository.findByAdmin(true)));
         }
 
@@ -54,12 +67,18 @@ public class PersonEditViewController {
     }
 
     @RequestMapping(value = {"/addPerson"}, method = RequestMethod.GET)
-    public ModelAndView addNewPerson() {
+    public ModelAndView addNewPerson(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         List<Person> arrayList = new ArrayList<>();
         Person person = new Person();
 
         arrayList.add(person);
-
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", arrayList));
     }
 
@@ -83,7 +102,7 @@ public class PersonEditViewController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
-
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", personRepository.findAllById(arrayList)));
     }
 

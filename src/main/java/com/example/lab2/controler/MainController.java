@@ -18,6 +18,7 @@ public class MainController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username",  request.getUserPrincipal().getName());
         return "index";
     }
 

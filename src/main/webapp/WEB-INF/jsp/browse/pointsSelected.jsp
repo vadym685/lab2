@@ -11,7 +11,7 @@
 <body>
 <div>
     <div class="left"><h1>Points selected</h1></div>
-    <div class="right"><a href="logoutApp">Logout</a></div>
+    <div class="right">Welcome, ${username} <a href="logoutApp">Logout</a></div>
 </div>
 <nav>
     <a href="/">Home</a>

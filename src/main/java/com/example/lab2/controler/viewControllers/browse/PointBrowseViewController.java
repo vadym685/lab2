@@ -33,6 +33,7 @@ public class PointBrowseViewController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
     }
 
@@ -43,6 +44,7 @@ public class PointBrowseViewController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         if (searchField.equals("ID")) {
             ArrayList<Long> arrayList = new ArrayList<>();
             arrayList.add(Long.parseLong(searchString));

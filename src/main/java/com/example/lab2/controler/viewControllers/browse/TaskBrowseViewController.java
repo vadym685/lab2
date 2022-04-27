@@ -36,6 +36,7 @@ public class TaskBrowseViewController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         return new ModelAndView("browse/tasksBrowse", Collections.singletonMap("tempTasksMap", taskRepository.findAll()));
     }
 
@@ -47,6 +48,7 @@ public class TaskBrowseViewController {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", request.getUserPrincipal().getName());
         if (searchField.equals("ID")) {
             ArrayList<Long> arrayList = new ArrayList<>();
             arrayList.add(Long.parseLong(searchString));
