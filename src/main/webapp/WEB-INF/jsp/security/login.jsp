@@ -29,19 +29,20 @@
             background-color: gray;
         }
 
-        input[type=text], input[type=hidden], input[type=date], table {
+        input[type=text], input[type=hidden], input[type=date], table, input[type=password] {
             font-size: 1rem;
             font-family: sans-serif;
             margin: 5px;
         }
 
-        a:link, a:visited {
+        a:link, a:visited, button {
             background-color: #2ae133;
             color: #000000;
             padding: 8px 25px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            margin: 4px 2px;
             border: 1px solid black;
         }
 
@@ -49,10 +50,18 @@
             background-color: #2ae133;
             border: 1px solid black;
             color: #000000;
-            padding: 8px 32px;
+            padding: 8px 25px;
             text-decoration: none;
             margin: 4px 2px;
             cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .left, .right {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>

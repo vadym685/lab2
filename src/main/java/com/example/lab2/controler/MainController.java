@@ -1,18 +1,23 @@
 package com.example.lab2.controler;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
 public class MainController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        model.addAttribute("isAdmin", isAdmin);
         return "index";
     }
 

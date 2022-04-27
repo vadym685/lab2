@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Log in with your account</title>
+    <title>Admin panel</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -53,10 +53,28 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+
+        .left, .right {
+            display: inline-block;
+            width: 100%;
+            margin-right: -100%;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .left a, .right a {
+            position: relative;
+        }
     </style>
 </head>
 
 <body>
+<div>
+    <div class="left"><h1>Admin panel</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
 <div>
     <table>
         <thead>
@@ -83,7 +101,7 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/">Главная</a>
+    <a href="/">Home</a>
 </div>
 </body>
 </html>
