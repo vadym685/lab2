@@ -4,36 +4,15 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome</title>
-    <style>
-        input[type=text], input[type=hidden], input[type=date],table {
-            font-size: 1rem;
-            font-family: sans-serif;
-            margin: 5px;
-        }
-        a:link, a:visited {
-            background-color: #2ae133;
-            color: #000000;
-            padding: 8px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            border: 1px solid black;
-        }
-        input[type=button], input[type=submit], input[type=reset] {
-            background-color: #2ae133;
-            border: 1px solid black;
-            color: #000000;
-            padding: 8px 32px;
-            text-decoration: none;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="css/style.css"
+          rel="stylesheet">
 </head>
 
 <body>
-<h1>Welcome</h1>
-
+<div>
+    <div class="left"><h1>Point edit</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>
@@ -54,7 +33,11 @@
         CONTACT_PERSON:<input name="contactPerson" type="text" value=${point.contactPerson}><br>
         CONTACT_NUMBER:<input name="contactNumber" type="text" value=${point.contactNumber}><br>
         COMMENT:<input name="comment" type="text" value=${point.comment}><br>
-        <input type="submit" value="Save">
+
+        <input name="save" type="submit" value="Save">
+        <input name="saveClose" type="submit" value="Save&Close">
+        <input name="close" type="submit" value="Close">
+
     </form>
 </c:forEach>
 

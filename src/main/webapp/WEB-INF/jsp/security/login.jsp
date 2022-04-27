@@ -1,9 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Welcome</title>
+    <title>Log in with your account</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -27,19 +29,20 @@
             background-color: gray;
         }
 
-        input[type=text], input[type=hidden], input[type=date], table {
+        input[type=text], input[type=hidden], input[type=date], table, input[type=password] {
             font-size: 1rem;
             font-family: sans-serif;
             margin: 5px;
         }
 
-        a:link, a:visited {
+        a:link, a:visited, button {
             background-color: #2ae133;
             color: #000000;
             padding: 8px 25px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            margin: 4px 2px;
             border: 1px solid black;
         }
 
@@ -47,43 +50,38 @@
             background-color: #2ae133;
             border: 1px solid black;
             color: #000000;
-            padding: 8px 32px;
+            padding: 8px 25px;
             text-decoration: none;
             margin: 4px 2px;
             cursor: pointer;
+            display: inline-block;
+            text-align: center;
         }
 
         .left, .right {
             display: inline-block;
             width: 100%;
-            margin-right: -100%;
-        }
-
-        .right {
-            text-align: right;
-        }
-
-        .left a, .right a {
-            position: relative;
+            height: 100%;
         }
     </style>
 </head>
-<body>
 
+<body>
+<sec:authorize access="isAuthenticated()">
+    <% response.sendRedirect("/"); %>
+</sec:authorize>
 <div>
-    <div class="left"><h1>Welcome</h1></div>
-    <div class="right"><a href="logoutApp">Logout</a></div>
+    <form method="POST" action="/login">
+        <h2>Login</h2>
+        <div>
+            <input name="username" type="text" placeholder="Username"
+                   autofocus="true"/>
+            <input name="password" type="password" placeholder="Password"/>
+            <button type="submit">Login</button>
+            <h4><a href="/registration">Register</a></h4>
+        </div>
+    </form>
 </div>
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/tasksBrowse">Tasks</a>
-    <a href="/pointsBrowse">Points</a>
-    <a href="/personsBrowse">Persons</a>
-    ${isAdmin}
-    <div class="# start-home"></div>
-</nav>
-
 </body>
-
 </html>

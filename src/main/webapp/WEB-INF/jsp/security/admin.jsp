@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>Welcome</title>
+    <meta charset="utf-8">
+    <title>Admin panel</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -68,22 +69,39 @@
         }
     </style>
 </head>
-<body>
 
+<body>
 <div>
-    <div class="left"><h1>Welcome</h1></div>
+    <div class="left"><h1>Admin panel</h1></div>
     <div class="right"><a href="logoutApp">Logout</a></div>
 </div>
-
-<nav>
+<div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>UserName</th>
+        <th>Password</th>
+        <th>Roles</th>
+        </thead>
+        <c:forEach items="${allUsers}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.password}</td>
+                <td>
+                    <c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>
+                </td>
+                <td>
+                    <form action="${pageContext.request.contextPath}/admin" method="post">
+                        <input type="hidden" name="userId" value="${user.id}"/>
+                        <input type="hidden" name="action" value="delete"/>
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
     <a href="/">Home</a>
-    <a href="/tasksBrowse">Tasks</a>
-    <a href="/pointsBrowse">Points</a>
-    <a href="/personsBrowse">Persons</a>
-    ${isAdmin}
-    <div class="# start-home"></div>
-</nav>
-
+</div>
 </body>
-
 </html>

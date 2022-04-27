@@ -10,7 +10,7 @@
 
 <body>
 <div>
-    <div class="left"><h1>Points browse</h1></div>
+    <div class="left"><h1>Points selected</h1></div>
     <div class="right"><a href="logoutApp">Logout</a></div>
 </div>
 <nav>
@@ -61,27 +61,12 @@
             <td>${point.contactNumber}</td>
             <td>${point.comment}</td>
             <td>
-                <a href="editPoint?pointID=${point.id}">Edit</a>
-            </td>
-            <td>
-                <a href="deletePoint?pointID=${point.id}">Delete</a>
+                <a href="selectPoint?pointID=${point.id}&taskID=${taskID}">Select</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 
 </body>
-<%--<script src="https://code.jquery.com/jquery-2.2.4.js" type="text/javascript">--%>
 
-<%--    $(".approve").click(function(){--%>
-<%--        var selecred_btn_id = $(this).attr("id");--%>
-
-<%--        var sel_task_id = $("Task"+selecred_btn_id).attr("id");--%>
-
-<%--        window.alert(sel_task_id);--%>
-<%--        // your remaing code goes here--%>
-
-<%--    })--%>
-
-<%--</script>--%>
 </html>

@@ -2,17 +2,23 @@ package com.example.lab2.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "TASK", indexes = {
         @Index(name = "IDX_TASK_POINT_ID", columnList = "POINT_ID")
 })
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
@@ -26,6 +32,7 @@ public class Task {
 
     @JoinColumn(name = "POINT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Point point;
 
     @JsonProperty("pointID")
@@ -33,10 +40,12 @@ public class Task {
 
     @OneToMany(mappedBy = "task")
     @JsonProperty("positions")
+    @ToString.Exclude
     private List<Position> positions;
 
     @OneToMany(mappedBy = "task")
     @JsonProperty("consumables")
+    @ToString.Exclude
     private List<Consumables> consumables;
 
     @JoinTable(name = "TASK_PERSON_LINK",
@@ -44,61 +53,19 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
     @ManyToMany
     @JsonProperty("persons")
+    @ToString.Exclude
     private List<Person> persons;
 
-    public List<Person> getPersons() {
-        return persons;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Task task = (Task) o;
+        return true;
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
-    }
-
-    public List<Position> getPositions() {
-        return positions;
-    }
-
-    public void setPositions(List<Position> positions) {
-        this.positions = positions;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    public void setPoint(Point point) {
-        this.point = point;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public long  getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getPointID() {
-        return pointID;
-    }
-
-    public void setPointID(String pointID) {
-        this.pointID = pointID;
-    }
-
-    public List<Consumables> getConsumables() {
-        return consumables;
-    }
-
-    public void setConsumables(List<Consumables> consumables) {
-        this.consumables = consumables;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -10,13 +9,10 @@
 </head>
 
 <body>
-
 <div>
-    <div class="left"><h1>Tasks browse</h1></div>
+    <div class="left"><h1>Persons browse</h1></div>
     <div class="right"><a href="logoutApp">Logout</a></div>
 </div>
-
-
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>
@@ -27,37 +23,41 @@
 
 <br>
 
-<form method=get action="searchTask">
+<form method=get action="searchPerson">
     <input type="hidden" name="action" value="Search">
 
     Search by <select id="searchField" name="searchField">
     <option value="ID">Id</option>
+    <option value="NAME">Name</option>
 </select>: <input type="text" name="searchString">
 </form>
 
-<form method=get action="addTask">
+<form method=get action="addPerson">
     <input type="submit" value="Add new">
 </form>
 <br>
 <table id="table">
     <tr>
         <th>ID</th>
-        <th>DATE</th>
-        <th>POINT_ID</th>
+        <th>NAME</th>
+        <th>FULL_NAME</th>
+        <th>PHONE_NUMBER</th>
+        <th>ADMIN</th>
+        <th>MANAGER_ID</th>
     </tr>
 
-    <%--@elvariable id="tempTasksMap" type="java.util.List"--%>
-    <c:forEach items="${tempTasksMap}" var="task">
+    <%--@elvariable id="tempPersonMap" type="java.util.List"--%>
+    <c:forEach items="${tempPersonMap}" var="person">
 
         <tr>
-            <td>${task.id}</td>
-            <td><fmt:formatDate value="${task.date}" pattern="yyyy-MM-dd"/></td>
-            <td>${task.point.id}</td>
+            <td>${person.id}</td>
+            <td>${person.name}</td>
+            <td>${person.fullName}</td>
+            <td>${person.phoneNumber}</td>
+            <td>${person.admin}</td>
+            <td>${person.manager.id}</td>
             <td>
-                <a href="editTask?taskID=${task.id}">Edit</a>
-            </td>
-            <td>
-                <a href="deleteTask?taskID=${task.id}">Delete</a>
+                <a href="selectPerson?personID=${person.id}&taskID=${taskID}">Select</a>
             </td>
         </tr>
     </c:forEach>

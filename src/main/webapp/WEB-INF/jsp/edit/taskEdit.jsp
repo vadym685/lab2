@@ -5,60 +5,15 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome</title>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-        }
-
-        table#alter tr:nth-child(even) {
-            background-color: #eee;
-        }
-
-        table#alter tr:nth-child(odd) {
-            background-color: #fff;
-        }
-
-        table#alter th {
-            color: white;
-            background-color: gray;
-        }
-
-        input[type=text], input[type=hidden], input[type=date],table {
-            font-size: 1rem;
-            font-family: sans-serif;
-            margin: 5px;
-        }
-
-        a:link, a:visited {
-            background-color: #2ae133;
-            color: #000000;
-            padding: 8px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            border: 1px solid black;
-        }
-
-        input[type=button], input[type=submit], input[type=reset] {
-            background-color: #2ae133;
-            border: 1px solid black;
-            color: #000000;
-            padding: 8px 32px;
-            text-decoration: none;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="css/style.css"
+          rel="stylesheet">
 </head>
 
 <body>
-<h1>Welcome</h1>
-
+<div>
+    <div class="left"><h1>Task edit</h1></div>
+    <div class="right"><a href="logoutApp">Logout</a></div>
+</div>
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>
@@ -73,10 +28,11 @@
     <form method=post action="saveEditedTask" modelAttribute="task">
         ID:<input name="id" type="text" value=${task.id} readonly><br>
         DATE:<input name="date" type="date" value=${task.date}><br>
-        POINT:<input name="point" type="text" value=${task.point.id}><br>
+        POINT:<input name="point" type="text" value=${task.point.id !=null ? task.point.id:0} readonly>
+        <input name="selectPoint" type="submit" value="Select point"><br>
 
         <br>
-        <a href="addPosition?taskID=${task.id}">Add new position</a>
+        <input name="saveAndAddPosition" type="submit" value="Add new position">
         <br>
 
         <table id="positionTable">
@@ -86,6 +42,7 @@
                 <th>COMMENT</th>
             </tr>
             <c:forEach items="${task.positions}" var="taskPositions">
+
                 <tr>
                     <td>${taskPositions.id}</td>
                     <td>${taskPositions.description}</td>
@@ -98,10 +55,11 @@
                     </td>
                 </tr>
             </c:forEach>
+
         </table>
 
         <br>
-        <a href="addConsumables?taskID=${task.id}">Add new consumables</a>
+        <input name="saveAndAddConsumables" type="submit" value="Add new consumables">
         <br>
 
         <table id="consumablesTable">
@@ -127,9 +85,42 @@
                 </tr>
             </c:forEach>
         </table>
+        <br>
+        <input name="selectPerson" type="submit" value="Select person">
+        <br>
+        <table id="personsTable">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>FULL_NAME</th>
+                <th>PHONE_NUMBER</th>
+                <th>ADMIN</th>
+                <th>MANAGER_ID</th>
+            </tr>
 
+                <%--@elvariable id="tempPersonMap" type="java.util.List"--%>
+            <c:forEach items="${task.persons}" var="taskPerson">
 
-        <input type="submit" value="Save">
+                <tr>
+                    <td>${taskPerson.id}</td>
+                    <td>${taskPerson.name}</td>
+                    <td>${taskPerson.fullName}</td>
+                    <td>${taskPerson.phoneNumber}</td>
+                    <td>${taskPerson.admin}</td>
+                    <td>${taskPerson.manager.id}</td>
+                    <td>
+                        <a href="editPersonFromTask?personID=${taskPerson.id}&taskID=${task.id}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="deletePersonFromTask?personID=${person.id}&taskID=${task.id}">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+
+        <input name="save" type="submit" value="Save">
+        <input name="saveClose" type="submit" value="Save&Close">
+        <input name="close" type="submit" value="Close">
     </form>
 </c:forEach>
 
