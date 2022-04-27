@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,10 +24,20 @@ public class PointEditViewController {
     private PointRepo pointRepository;
 
     @RequestMapping(value = {"/editPoint"}, method = RequestMethod.GET)
-    public ModelAndView getPointByID(@RequestParam("pointID") String pointID) {
+    public ModelAndView getPointByID(@RequestParam("pointID") String pointID, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(pointID));
 
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", pointRepository.findAllById(arrayList)));
     }
 
@@ -49,12 +60,22 @@ public class PointEditViewController {
     }
 
     @RequestMapping(value = {"/addPoint"}, method = RequestMethod.GET)
-    public ModelAndView addNewPoint() {
+    public ModelAndView addNewPoint(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+
         List<Point> arrayList = new ArrayList<>();
         Point point = new Point();
 
         arrayList.add(point);
 
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", arrayList));
     }
 }

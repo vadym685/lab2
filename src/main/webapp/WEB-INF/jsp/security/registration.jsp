@@ -87,7 +87,7 @@
             <div class="left">
                 <button type="submit">Register</button>
             </div>
-            <div class="right"><a href="/">Home</a></div>
+            <div class="right"><a href="/login">Home</a></div>
         </div>
     </form:form>
 

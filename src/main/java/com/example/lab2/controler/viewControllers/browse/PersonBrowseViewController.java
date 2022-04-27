@@ -3,11 +3,14 @@ package com.example.lab2.controler.viewControllers.browse;
 import com.example.lab2.repository.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,7 +20,16 @@ public class PersonBrowseViewController {
     private PersonRepo personRepository;
 
     @RequestMapping(value = {"/personsBrowse"}, method = RequestMethod.GET)
-    public ModelAndView viewPersonsBrowse() {
+    public ModelAndView viewPersonsBrowse(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("browse/personsBrowse", Collections.singletonMap("tempPersonMap", personRepository.findAll()));
     }
 

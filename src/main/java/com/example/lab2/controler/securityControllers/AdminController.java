@@ -10,29 +10,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+
 @Controller
 public class AdminController {
     @Autowired
     private UserService userService;
 
     @GetMapping("/admin")
-    public ModelAndView userList(Model model) {
+    public ModelAndView userList(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         model.addAttribute("allUsers", userService.allUsers());
         return new ModelAndView("security/admin");
     }
 
     @PostMapping("/admin")
-    public ModelAndView  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
-                              @RequestParam(required = true, defaultValue = "" ) String action,
-                              Model model) {
-        if (action.equals("delete")){
+    public ModelAndView deleteUser(@RequestParam(required = true, defaultValue = "") Long userId,
+                                   @RequestParam(required = true, defaultValue = "") String action,
+                                   Model model) {
+        if (action.equals("delete")) {
             userService.deleteUser(userId);
         }
         return new ModelAndView("redirect:" + "/admin");
     }
 
     @GetMapping("/admin/gt/{userId}")
-    public ModelAndView  gtUser(@PathVariable("userId") Long userId, Model model) {
+    public ModelAndView gtUser(@PathVariable("userId") Long userId, Model model) {
         model.addAttribute("allUsers", userService.usergtList(userId));
         return new ModelAndView("security/admin");
     }

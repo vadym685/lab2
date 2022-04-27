@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,12 +28,30 @@ public class PointBrowseViewController {
     private TaskRepo taskRepository;
 
     @RequestMapping(value = {"/pointsBrowse"}, method = RequestMethod.GET)
-    public ModelAndView viewpointsBrowse() {
+    public ModelAndView viewpointsBrowse(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("browse/pointsBrowse", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
     }
 
     @RequestMapping(value = {"/searchPoint"}, method = RequestMethod.GET)
-    public ModelAndView getPoint(@RequestParam("searchString") String searchString, String searchField) {
+    public ModelAndView getPoint(@RequestParam("searchString") String searchString, String searchField, Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         if (searchField.equals("ID")) {
             ArrayList<Long> arrayList = new ArrayList<>();
             arrayList.add(Long.parseLong(searchString));

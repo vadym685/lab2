@@ -11,13 +11,14 @@
 <body>
 <div>
     <div class="left"><h1>Points browse</h1></div>
-    <div class="right"><a href="logoutApp">Logout</a></div>
+    <div class="right">Welcome, ${username} <a href="logoutApp">Logout</a></div>
 </div>
 <nav>
     <a href="/">Home</a>
     <a href="/tasksBrowse">Tasks</a>
     <a href="/pointsBrowse">Points</a>
     <a href="/personsBrowse">Persons</a>
+    ${isAdmin}
     <div class="# start-home"></div>
 </nav>
 
