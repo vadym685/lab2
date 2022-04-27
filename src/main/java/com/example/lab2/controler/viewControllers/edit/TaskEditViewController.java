@@ -37,7 +37,10 @@ public class TaskEditViewController {
 
     @RequestMapping(value = {"/saveEditedTask"}, method = RequestMethod.POST)
     public ModelAndView saveEditedTask(@ModelAttribute(value = "task") Task task, Model model, HttpServletRequest request) {
-
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
 
         if (request.getParameter("close") != null) {
             return new ModelAndView("redirect:" + "/tasksBrowse");
@@ -64,10 +67,12 @@ public class TaskEditViewController {
         }
         if (request.getParameter("selectPoint") != null) {
             model.addAttribute("taskID", task.getId());
+            model.addAttribute("isAdmin", isAdmin);
             return new ModelAndView("browse/pointsSelected", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
         }
         if (request.getParameter("selectPerson") != null) {
             model.addAttribute("taskID", task.getId());
+            model.addAttribute("isAdmin", isAdmin);
             return new ModelAndView("browse/personsSelected", Collections.singletonMap("tempPersonMap", personRepository.findAll()));
         }
 

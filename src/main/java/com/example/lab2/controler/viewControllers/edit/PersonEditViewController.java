@@ -2,7 +2,6 @@ package com.example.lab2.controler.viewControllers.edit;
 
 import com.example.lab2.model.Person;
 import com.example.lab2.repository.PersonRepo;
-import com.example.lab2.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,7 +64,7 @@ public class PersonEditViewController {
     }
 
     @RequestMapping(value = {"/selectManager"}, method = RequestMethod.GET)
-    public ModelAndView selectPoint(@RequestParam("managerID") String managerID, @RequestParam("personID") String personID) {
+    public ModelAndView selectPoint(@RequestParam("managerID") String managerID, @RequestParam("personID") String personID, Model model, HttpServletRequest request) {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(personID));
 
@@ -78,6 +77,12 @@ public class PersonEditViewController {
         person.setManager(manager);
 
         personRepository.save(person);
+
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        model.addAttribute("isAdmin", isAdmin);
 
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", personRepository.findAllById(arrayList)));
     }

@@ -18,6 +18,7 @@
     <a href="/tasksBrowse">Tasks</a>
     <a href="/pointsBrowse">Points</a>
     <a href="/personsBrowse">Persons</a>
+    ${isAdmin}
     <div class="# start-home"></div>
 </nav>
 

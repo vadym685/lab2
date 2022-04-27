@@ -10,13 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AdminController {
     @Autowired
     private UserService userService;
 
     @GetMapping("/admin")
-    public ModelAndView userList(Model model) {
+    public ModelAndView userList(Model model, HttpServletRequest request) {
+        String isAdmin = "";
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            isAdmin = "<a href=\"/admin\">Admin panel</a>";
+        }
+        model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("allUsers", userService.allUsers());
         return new ModelAndView("security/admin");
     }
