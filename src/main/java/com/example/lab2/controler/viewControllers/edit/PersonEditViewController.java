@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,8 +34,11 @@ public class PersonEditViewController {
         arrayList.add(Long.parseLong(personID));
 
         model.addAttribute("taskID", "");
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        };
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", personRepository.findAllById(arrayList)));
     }
 
@@ -58,8 +62,11 @@ public class PersonEditViewController {
             }
 
             model.addAttribute("personID", person.getId());
-            model.addAttribute("isAdmin", isAdmin);
-            model.addAttribute("username",  request.getUserPrincipal().getName());
+            Principal user = request.getUserPrincipal();
+            if (user != null) {
+                model.addAttribute("isAdmin", isAdmin);
+                model.addAttribute("username", user.getName());
+            }
             return new ModelAndView("browse/managerSelected", Collections.singletonMap("tempPersonMap", personRepository.findByAdmin(true)));
         }
 
@@ -77,8 +84,11 @@ public class PersonEditViewController {
         Person person = new Person();
 
         arrayList.add(person);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", arrayList));
     }
 
@@ -101,8 +111,11 @@ public class PersonEditViewController {
         if (request.isUserInRole("ROLE_ADMIN")) {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/personEdit", Collections.singletonMap("tempPersonMap", personRepository.findAllById(arrayList)));
     }
 

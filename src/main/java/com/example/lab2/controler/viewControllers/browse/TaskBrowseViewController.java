@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -35,8 +36,11 @@ public class TaskBrowseViewController {
         if (request.isUserInRole("ROLE_ADMIN")) {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("browse/tasksBrowse", Collections.singletonMap("tempTasksMap", taskRepository.findAll()));
     }
 
@@ -47,8 +51,11 @@ public class TaskBrowseViewController {
         if (request.isUserInRole("ROLE_ADMIN")) {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         if (searchField.equals("ID")) {
             ArrayList<Long> arrayList = new ArrayList<>();
             arrayList.add(Long.parseLong(searchString));

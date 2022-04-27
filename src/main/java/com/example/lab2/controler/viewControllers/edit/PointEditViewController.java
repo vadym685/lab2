@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,8 +33,11 @@ public class PointEditViewController {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(pointID));
 
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", pointRepository.findAllById(arrayList)));
     }
 
@@ -67,8 +71,11 @@ public class PointEditViewController {
 
         arrayList.add(point);
 
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/pointEdit", Collections.singletonMap("tempPoint", arrayList));
     }
 }

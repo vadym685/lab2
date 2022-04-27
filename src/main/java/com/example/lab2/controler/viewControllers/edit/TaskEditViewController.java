@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,8 +38,11 @@ public class TaskEditViewController {
         ArrayList<Long> arrayList = new ArrayList<>();
         arrayList.add(Long.parseLong(taskID));
 
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 
@@ -74,14 +78,20 @@ public class TaskEditViewController {
         }
         if (request.getParameter("selectPoint") != null) {
             model.addAttribute("taskID", task.getId());
-            model.addAttribute("isAdmin", isAdmin);
-            model.addAttribute("username", request.getUserPrincipal().getName());
+            Principal user = request.getUserPrincipal();
+            if (user != null) {
+                model.addAttribute("isAdmin", isAdmin);
+                model.addAttribute("username", user.getName());
+            }
             return new ModelAndView("browse/pointsSelected", Collections.singletonMap("tempPointsMap", pointRepository.findAll()));
         }
         if (request.getParameter("selectPerson") != null) {
             model.addAttribute("taskID", task.getId());
-            model.addAttribute("isAdmin", isAdmin);
-            model.addAttribute("username", request.getUserPrincipal().getName());
+            Principal user = request.getUserPrincipal();
+            if (user != null) {
+                model.addAttribute("isAdmin", isAdmin);
+                model.addAttribute("username", user.getName());
+            }
             return new ModelAndView("browse/personsSelected", Collections.singletonMap("tempPersonMap", personRepository.findAll()));
         }
 
@@ -100,8 +110,11 @@ public class TaskEditViewController {
         List<Task> arrayList = new ArrayList<>();
         arrayList.add(task);
 
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", arrayList));
     }
 
@@ -125,8 +138,11 @@ public class TaskEditViewController {
 
         taskRepository.save(task);
 
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 
@@ -152,8 +168,11 @@ public class TaskEditViewController {
 
         taskRepository.save(task);
 
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 

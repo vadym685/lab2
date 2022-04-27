@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,8 +40,11 @@ public class ConsumablesEditViewController {
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/consumablesEdit", Collections.singletonMap("tempConsumables", consumablesRepo.findAllById(arrayList)));
     }
 
@@ -82,8 +86,11 @@ public class ConsumablesEditViewController {
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 
@@ -99,8 +106,11 @@ public class ConsumablesEditViewController {
 
         arrayList.add(consumables);
         model.addAttribute("taskID", taskID);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username", request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/consumablesEdit", Collections.singletonMap("tempConsumables", arrayList));
     }
 }

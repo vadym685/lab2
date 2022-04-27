@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 
 @Controller
@@ -17,8 +18,11 @@ public class MainController {
         if (request.isUserInRole("ROLE_ADMIN")) {
             isAdmin = "<a href=\"/admin\">Admin panel</a>";
         }
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username",  request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return "index";
     }
 

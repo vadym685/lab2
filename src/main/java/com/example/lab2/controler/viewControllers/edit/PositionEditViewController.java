@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,8 +35,11 @@ public class PositionEditViewController {
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username",  request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/positionEdit", Collections.singletonMap("tempPosition", positionRepo.findAllById(arrayList)));
     }
 
@@ -77,8 +81,11 @@ public class PositionEditViewController {
         arrayList.add(Long.parseLong(taskID));
 
         model.addAttribute("taskID", taskID);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username",  request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/taskEdit", Collections.singletonMap("tempTask", taskRepository.findAllById(arrayList)));
     }
 
@@ -94,8 +101,11 @@ public class PositionEditViewController {
 
         arrayList.add(position);
         model.addAttribute("taskID", taskID);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("username",  request.getUserPrincipal().getName());
+        Principal user = request.getUserPrincipal();
+        if (user != null) {
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("username", user.getName());
+        }
         return new ModelAndView("edit/positionEdit", Collections.singletonMap("tempPosition", arrayList));
     }
 }
