@@ -51,7 +51,7 @@ public class PointController {
 
     @PutMapping("/point/{id}")
     public ResponseEntity<Point> updatePoint(@PathVariable(value = "id") Long pointId,
-                                                   @Validated @RequestBody Point pointNew) throws ResourceNotFoundException {
+                                             @Validated @RequestBody Point pointNew) throws ResourceNotFoundException {
         Point point = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));
 
