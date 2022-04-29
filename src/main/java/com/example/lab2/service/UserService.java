@@ -1,5 +1,6 @@
 package com.example.lab2.service;
 
+import com.example.lab2.controler.entityСontrollers.PointController;
 import com.example.lab2.model.Role;
 import com.example.lab2.model.User;
 import com.example.lab2.repository.UserRepo;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +21,8 @@ import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
     @PersistenceContext
     private EntityManager em;
     @Autowired

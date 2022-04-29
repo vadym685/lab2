@@ -1,5 +1,6 @@
 package com.example.lab2.controler.viewControllers.edit;
 
+import com.example.lab2.controler.entityСontrollers.PointController;
 import com.example.lab2.model.Consumables;
 import com.example.lab2.model.Task;
 import com.example.lab2.repository.ConsumablesRepo;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -22,6 +25,7 @@ import java.util.Optional;
 
 @Controller
 public class ConsumablesEditViewController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PointController.class);
 
     @Autowired
     private ConsumablesRepo consumablesRepo;

@@ -1,5 +1,6 @@
 package com.example.lab2.controler.viewControllers.edit;
 
+import com.example.lab2.controler.entityСontrollers.PointController;
 import com.example.lab2.model.Person;
 import com.example.lab2.model.Point;
 import com.example.lab2.model.Task;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -21,6 +24,8 @@ import java.util.Optional;
 
 @Controller
 public class TaskEditViewController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PointController.class);
+
     @Autowired
     private TaskRepo taskRepository;
     @Autowired
