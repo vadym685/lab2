@@ -1,5 +1,6 @@
 package com.example.lab2.controler.securityControllers;
 
+import com.example.lab2.controler.entityСontrollers.PointController;
 import com.example.lab2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Controller
 public class AdminController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+
     @Autowired
     private UserService userService;
 

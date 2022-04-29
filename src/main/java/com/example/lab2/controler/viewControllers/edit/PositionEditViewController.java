@@ -1,5 +1,6 @@
 package com.example.lab2.controler.viewControllers.edit;
 
+import com.example.lab2.controler.entityСontrollers.PointController;
 import com.example.lab2.model.Position;
 import com.example.lab2.model.Task;
 import com.example.lab2.repository.PositionRepo;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -19,6 +22,8 @@ import java.util.Optional;
 
 @Controller
 public class PositionEditViewController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PointController.class);
+
     @Autowired
     private PositionRepo positionRepo;
     @Autowired

@@ -1,5 +1,6 @@
 package com.example.lab2.controler.viewControllers.browse;
 
+import com.example.lab2.controler.entityСontrollers.PointController;
 import com.example.lab2.repository.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -16,6 +19,8 @@ import java.util.Collections;
 
 @Controller
 public class PersonBrowseViewController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PointController.class);
+
     @Autowired
     private PersonRepo personRepository;
 
