@@ -71,7 +71,7 @@ public class TaskBrowseViewController {
     }
 
     @RequestMapping(value = {"/deleteTask"}, method = RequestMethod.GET)
-    public ModelAndView deleteTaskByID(@RequestParam("taskID") String taskID) {
+    public ModelAndView deleteTaskByID(@RequestParam("taskID") String taskID,HttpServletRequest request) {
         Optional<Task> optionalTask = taskRepository.findById(Long.parseLong(taskID));
         Task task = optionalTask.orElseGet(Task::new);
 

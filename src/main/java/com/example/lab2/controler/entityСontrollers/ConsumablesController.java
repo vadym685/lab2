@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +22,12 @@ public class ConsumablesController {
     private ConsumablesRepo consumablesRepository;
 
     @GetMapping("/consumables")
-    public List<Consumables> getAllConsumables() {
+    public List<Consumables> getAllConsumables(HttpServletRequest request) {
         return consumablesRepository.findAll();
     }
 
     @DeleteMapping("/consumables")
-    public Map<String, Boolean> deleteConsumable()
+    public Map<String, Boolean> deleteConsumable(HttpServletRequest request)
             throws ResourceNotFoundException {
 
         consumablesRepository.deleteAll();

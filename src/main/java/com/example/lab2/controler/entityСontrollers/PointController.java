@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ public class PointController {
     }
 
     @GetMapping("/point/{id}")
-    public ResponseEntity<Point> getPointById(@PathVariable(value = "id") Long pointId)
+    public ResponseEntity<Point> getPointById(@PathVariable(value = "id") Long pointId, HttpServletRequest request)
             throws ResourceNotFoundException {
         Point point = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));
@@ -39,9 +40,9 @@ public class PointController {
     }
 
     @PostMapping("/point")
-    public ResponseEntity<Point> addPoint(@Validated @RequestBody Point request) {
+    public ResponseEntity<Point> addPoint(@Validated @RequestBody Point requestBody, HttpServletRequest request) {
         try {
-            Point point = pointRepository.save(request);
+            Point point = pointRepository.save(requestBody);
             return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.error(Arrays.toString(e.getStackTrace()));
@@ -51,7 +52,7 @@ public class PointController {
 
     @PutMapping("/point/{id}")
     public ResponseEntity<Point> updatePoint(@PathVariable(value = "id") Long pointId,
-                                             @Validated @RequestBody Point pointNew) throws ResourceNotFoundException {
+                                             @Validated @RequestBody Point pointNew, HttpServletRequest request) throws ResourceNotFoundException {
         Point point = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));
 
@@ -67,7 +68,7 @@ public class PointController {
     }
 
     @DeleteMapping("/point/{id}")
-    public Map<String, Boolean> deletePoint(@PathVariable(value = "id") Long pointId)
+    public Map<String, Boolean> deletePoint(@PathVariable(value = "id") Long pointId, HttpServletRequest request)
             throws ResourceNotFoundException {
         Point employee = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));

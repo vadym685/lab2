@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    public ResponseEntity<Person> getPersonById(@PathVariable(value = "id") Long personId)
+    public ResponseEntity<Person> getPersonById(@PathVariable(value = "id") Long personId, HttpServletRequest request)
             throws ResourceNotFoundException {
         Person person = personsRepository.findById(personId)
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found for this id :: " + personId));
@@ -53,7 +54,7 @@ public class PersonController {
 
     @PutMapping("/person/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable(value = "id") Long personId,
-                                           @Validated @RequestBody Person personNew) throws ResourceNotFoundException {
+                                               @Validated @RequestBody Person personNew, HttpServletRequest request) throws ResourceNotFoundException {
         Person person = personsRepository.findById(personId)
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found for this id :: " + personId));
 
@@ -67,7 +68,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/person/{id}")
-    public Map<String, Boolean> deletePerson(@PathVariable(value = "id") Long personId)
+    public Map<String, Boolean> deletePerson(@PathVariable(value = "id") Long personId, HttpServletRequest request)
             throws ResourceNotFoundException {
         Person person = personsRepository.findById(personId)
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found for this id :: " + personId));
