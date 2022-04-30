@@ -22,12 +22,12 @@ public class ConsumablesController {
     private ConsumablesRepo consumablesRepository;
 
     @GetMapping("/consumables")
-    public List<Consumables> getAllConsumables( HttpServletRequest request) {
+    public List<Consumables> getAllConsumables(HttpServletRequest request) {
         return consumablesRepository.findAll();
     }
 
     @DeleteMapping("/consumables")
-    public Map<String, Boolean> deleteConsumable()
+    public Map<String, Boolean> deleteConsumable(HttpServletRequest request)
             throws ResourceNotFoundException {
 
         consumablesRepository.deleteAll();

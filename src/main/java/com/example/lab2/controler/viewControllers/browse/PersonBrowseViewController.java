@@ -39,7 +39,7 @@ public class PersonBrowseViewController {
     }
 
     @RequestMapping(value = {"/searchPerson"}, method = RequestMethod.GET)
-    public ModelAndView getPersons(@RequestParam("searchString") String searchString, String searchField) {
+    public ModelAndView getPersons(@RequestParam("searchString") String searchString, String searchField,HttpServletRequest request) {
         if (searchField.equals("ID")) {
             ArrayList<Long> arrayList = new ArrayList<>();
             arrayList.add(Long.parseLong(searchString));
@@ -52,7 +52,7 @@ public class PersonBrowseViewController {
     }
 
     @RequestMapping(value = {"/deletePerson"}, method = RequestMethod.GET)
-    public ModelAndView deletePersonByID(@RequestParam("personID") String personID) {
+    public ModelAndView deletePersonByID(@RequestParam("personID") String personID,HttpServletRequest request) {
         personRepository.deleteById(Long.parseLong(personID));
 
         return new ModelAndView("redirect:" + "/personsBrowse");

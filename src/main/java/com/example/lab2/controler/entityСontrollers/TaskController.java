@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,12 +26,12 @@ public class TaskController {
     private TaskRepo taskRepository;
 
     @GetMapping("/tasks")
-    public List<Task> getAllTasks() {
+    public List<Task> getAllTasks(HttpServletRequest request) {
         return taskRepository.findAll();
     }
 
     @GetMapping("/task/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable(value = "id") Long taskId)
+    public ResponseEntity<Task> getTaskById(@PathVariable(value = "id") Long taskId, HttpServletRequest request)
             throws ResourceNotFoundException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
@@ -38,10 +39,10 @@ public class TaskController {
     }
 
     @PostMapping("/task")
-    public ResponseEntity<Task> addTask(@Validated @RequestBody Task request) {
+    public ResponseEntity<Task> addTask(@Validated @RequestBody Task requestBody, HttpServletRequest request) {
 
         try {
-            Task task = taskRepository.save(request);
+            Task task = taskRepository.save(requestBody);
             return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.error(Arrays.toString(e.getStackTrace()));
@@ -51,7 +52,7 @@ public class TaskController {
 
     @PutMapping("/task/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable(value = "id") Long taskId,
-                                           @Validated @RequestBody Task taskNew) throws ResourceNotFoundException {
+                                           @Validated @RequestBody Task taskNew, HttpServletRequest request) throws ResourceNotFoundException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
 
@@ -64,7 +65,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/task/{id}")
-    public Map<String, Boolean> deleteTask(@PathVariable(value = "id") Long taskId)
+    public Map<String, Boolean> deleteTask(@PathVariable(value = "id") Long taskId, HttpServletRequest request)
             throws ResourceNotFoundException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));

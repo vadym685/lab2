@@ -41,7 +41,7 @@ public class AdminController {
     @PostMapping("/admin")
     public ModelAndView deleteUser(@RequestParam(required = true, defaultValue = "") Long userId,
                                    @RequestParam(required = true, defaultValue = "") String action,
-                                   Model model) {
+                                   Model model, HttpServletRequest request) {
         if (action.equals("delete")) {
             userService.deleteUser(userId);
         }
@@ -49,7 +49,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/gt/{userId}")
-    public ModelAndView gtUser(@PathVariable("userId") Long userId, Model model) {
+    public ModelAndView gtUser(@PathVariable("userId") Long userId, Model model, HttpServletRequest request) {
         model.addAttribute("allUsers", userService.usergtList(userId));
         return new ModelAndView("security/admin");
     }

@@ -69,7 +69,7 @@ public class PointBrowseViewController {
     }
 
     @RequestMapping(value = {"/deletePoint"}, method = RequestMethod.GET)
-    public ModelAndView deletePointByID(@RequestParam("pointID") String pointID, Model model) {
+    public ModelAndView deletePointByID(@RequestParam("pointID") String pointID, Model model,HttpServletRequest request) {
         Optional<Point> optionalPoint = pointRepository.findById(Long.parseLong(pointID));
         Point point = optionalPoint.orElseGet(Point::new);
 
