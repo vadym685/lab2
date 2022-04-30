@@ -1,5 +1,6 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -42,6 +43,7 @@ public class Person {
             joinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_ID", referencedColumnName = "ID"))
     @ManyToMany
+    @JsonIgnore
     private List<Task> tasks;
 
 }

@@ -26,7 +26,7 @@ public class PositionController {
     }
 
     @DeleteMapping("/positions")
-    public Map<String, Boolean> deleteAllPositions(@PathVariable(value = "id") Long taskId)
+    public Map<String, Boolean> deleteAllPositions()
             throws ResourceNotFoundException {
         positionRepository.deleteAll();
 

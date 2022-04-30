@@ -1,6 +1,5 @@
 package com.example.lab2.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -9,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Table(name = "TASK", indexes = {
         @Index(name = "IDX_TASK_POINT_ID", columnList = "POINT_ID")
@@ -23,7 +21,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     @Id
-    private long  id;
+    private long id;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     @Column(name = "DATE")
@@ -67,5 +65,13 @@ public class Task {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public long getPoint() {
+        return point.getId();
+    }
+
+    public Point getPointObj() {
+        return point;
     }
 }

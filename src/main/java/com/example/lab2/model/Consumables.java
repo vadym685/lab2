@@ -1,5 +1,6 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class Consumables {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     @Id
-    private long  id;
+    private long id;
 
     @Column(name = "DESCRIPTION")
     @JsonProperty("description")
@@ -28,6 +29,7 @@ public class Consumables {
 
     @ManyToOne
     @JoinColumn(name = "task_id")
+    @JsonIgnore
     private Task task;
 
 }
