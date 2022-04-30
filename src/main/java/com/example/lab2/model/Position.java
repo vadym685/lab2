@@ -1,5 +1,6 @@
 package com.example.lab2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -24,6 +25,7 @@ public class Position {
 
     @JoinColumn(name = "TASK_ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Task task;
 
 }

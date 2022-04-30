@@ -51,13 +51,13 @@ public class TaskController {
 
     @PutMapping("/task/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable(value = "id") Long taskId,
-                                                @Validated @RequestBody Task taskNew) throws ResourceNotFoundException {
+                                           @Validated @RequestBody Task taskNew) throws ResourceNotFoundException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
 
         task.setDate(taskNew.getDate());
         task.setPersons(taskNew.getPersons());
-        task.setPoint(taskNew.getPoint());
+        task.setPoint(taskNew.getPointObj());
         task.setPositions(taskNew.getPositions());
         final Task updatedTask = taskRepository.save(task);
         return ResponseEntity.ok(updatedTask);
