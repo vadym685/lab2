@@ -9,6 +9,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +24,17 @@ public class ConsumablesController {
 
     @GetMapping("/consumables")
     public List<Consumables> getAllConsumables(HttpServletRequest request) {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " get all consumables");
+
         return consumablesRepository.findAll();
     }
 
     @DeleteMapping("/consumables")
     public Map<String, Boolean> deleteConsumable(HttpServletRequest request)
             throws ResourceNotFoundException {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " delete all consumables");
 
         consumablesRepository.deleteAll();
         Map<String, Boolean> response = new HashMap<>();

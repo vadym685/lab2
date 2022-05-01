@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,19 @@ public class PointController {
     private PointRepo pointRepository;
 
     @GetMapping("/points")
-    public List<Point> getAllPoints() {
+    public List<Point> getAllPoints(HttpServletRequest request) {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " get all points");
+
         return pointRepository.findAll();
     }
 
     @GetMapping("/point/{id}")
     public ResponseEntity<Point> getPointById(@PathVariable(value = "id") Long pointId, HttpServletRequest request)
             throws ResourceNotFoundException {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " find point with id " + pointId);
+
         Point point = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));
         return ResponseEntity.ok().body(point);
@@ -41,6 +48,10 @@ public class PointController {
 
     @PostMapping("/point")
     public ResponseEntity<Point> addPoint(@Validated @RequestBody Point requestBody, HttpServletRequest request) {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + "add new point");
+        LOGGER.info("Request body:" + requestBody);
+
         try {
             Point point = pointRepository.save(requestBody);
             return new ResponseEntity<>(null, HttpStatus.OK);
@@ -53,6 +64,10 @@ public class PointController {
     @PutMapping("/point/{id}")
     public ResponseEntity<Point> updatePoint(@PathVariable(value = "id") Long pointId,
                                              @Validated @RequestBody Point pointNew, HttpServletRequest request) throws ResourceNotFoundException {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " update point with id " + pointId);
+        LOGGER.info("Request body:" + pointNew);
+
         Point point = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));
 
@@ -70,6 +85,9 @@ public class PointController {
     @DeleteMapping("/point/{id}")
     public Map<String, Boolean> deletePoint(@PathVariable(value = "id") Long pointId, HttpServletRequest request)
             throws ResourceNotFoundException {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " delete point with id " + pointId);
+
         Point employee = pointRepository.findById(pointId)
                 .orElseThrow(() -> new ResourceNotFoundException("Point not found for this id :: " + pointId));
 

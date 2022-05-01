@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,12 +28,19 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public List<Task> getAllTasks(HttpServletRequest request) {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " get all tasks");
+
         return taskRepository.findAll();
     }
 
     @GetMapping("/task/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable(value = "id") Long taskId, HttpServletRequest request)
             throws ResourceNotFoundException {
+
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " find task with id " + taskId);
+
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
         return ResponseEntity.ok().body(task);
@@ -40,6 +48,10 @@ public class TaskController {
 
     @PostMapping("/task")
     public ResponseEntity<Task> addTask(@Validated @RequestBody Task requestBody, HttpServletRequest request) {
+
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + "add new task");
+        LOGGER.info("Request body:" + requestBody);
 
         try {
             Task task = taskRepository.save(requestBody);
@@ -53,6 +65,10 @@ public class TaskController {
     @PutMapping("/task/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable(value = "id") Long taskId,
                                            @Validated @RequestBody Task taskNew, HttpServletRequest request) throws ResourceNotFoundException {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " update task with id " + taskId);
+        LOGGER.info("Request body:" + taskNew);
+
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
 
@@ -67,6 +83,9 @@ public class TaskController {
     @DeleteMapping("/task/{id}")
     public Map<String, Boolean> deleteTask(@PathVariable(value = "id") Long taskId, HttpServletRequest request)
             throws ResourceNotFoundException {
+        Principal user = request.getUserPrincipal();
+        LOGGER.info("User with name " + user.getName() + " delete task with id " + taskId);
+
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found for this id :: " + taskId));
 
