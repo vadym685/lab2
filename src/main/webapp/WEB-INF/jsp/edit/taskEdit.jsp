@@ -29,7 +29,7 @@
     <form method=post action="saveEditedTask" modelAttribute="task">
         ID:<input name="id" type="text" value=${task.id} readonly><br>
         DATE:<input name="date" type="date" value=${task.date}><br>
-        POINT:<input name="point" type="text" value=${task.point.id !=null ? task.point.id:0} readonly>
+        POINT:<input name="point" type="text" value=${task.point !=null ? task.point:0} readonly>
         <input name="selectPoint" type="submit" value="Select point"><br>
 
         <br>
