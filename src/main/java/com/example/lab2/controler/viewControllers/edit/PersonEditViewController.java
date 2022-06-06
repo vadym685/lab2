@@ -53,7 +53,21 @@ public class PersonEditViewController {
         if (request.getParameter("close") != null) {
             return new ModelAndView("redirect:" + "/personsBrowse");
         }
-        personRepository.save(person);
+
+        boolean result = false;
+        int counter = 0;
+        while (!result) {
+            if (counter>=50){
+                return new ModelAndView("error/db_error");
+            }
+            try {
+                personRepository.save(person);
+                result = true;
+            } catch (Exception e) {
+                counter++;
+            }
+        }
+
         if (request.getParameter("save") != null) {
             return new ModelAndView("redirect:" + "/editPerson?personID=" + person.getId());
         }

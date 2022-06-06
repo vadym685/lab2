@@ -67,7 +67,19 @@ public class TaskEditViewController {
             task.setPersons(personList);
         }
 
-        taskRepository.save(task);
+        boolean result = false;
+        int counter = 0;
+        while (!result) {
+            if (counter>=50){
+                return new ModelAndView("error/db_error");
+            }
+            try {
+                taskRepository.save(task);
+                result = true;
+            } catch (Exception e) {
+                counter++;
+            }
+        }
 
         if (request.getParameter("save") != null) {
             return new ModelAndView("redirect:" + "/editTask?taskID=" + task.getId());

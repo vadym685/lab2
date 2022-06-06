@@ -47,12 +47,24 @@ public class PointEditViewController {
     }
 
     @RequestMapping(value = {"/saveEditedPoint"}, method = RequestMethod.POST)
-    public ModelAndView saveEditedPoint(@ModelAttribute("point") Point point, HttpServletRequest request) {
+    public ModelAndView saveEditedPoint(@ModelAttribute("point") Point point, HttpServletRequest request) throws Exception {
         if (request.getParameter("close") != null) {
             return new ModelAndView("redirect:" + "/pointsBrowse");
         }
 
-        pointRepository.save(point);
+        boolean result = false;
+        int counter = 0;
+        while (!result) {
+            if (counter>=50){
+                return new ModelAndView("error/db_error");
+            }
+            try {
+                pointRepository.save(point);
+                result = true;
+            } catch (Exception e) {
+                counter++;
+            }
+        }
 
         if (request.getParameter("save") != null) {
             return new ModelAndView("redirect:" + "/editPoint?pointID=" + point.getId());
