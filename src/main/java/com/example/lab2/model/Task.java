@@ -68,6 +68,9 @@ public class Task {
     }
 
     public long getPoint() {
+        if (point==null){
+            return 0;
+        }
         return point.getId();
     }
 

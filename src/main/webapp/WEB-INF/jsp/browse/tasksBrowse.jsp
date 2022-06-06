@@ -53,7 +53,7 @@
         <tr>
             <td>${task.id}</td>
             <td><fmt:formatDate value="${task.date}" pattern="yyyy-MM-dd"/></td>
-            <td>${task.point.id}</td>
+            <td>${task.point}</td>
             <td>
                 <a href="editTask?taskID=${task.id}">Edit</a>
             </td>
